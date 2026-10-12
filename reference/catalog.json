@@ -53,5 +53,10 @@
     "name": "SIFT",
     "path": "sift/index.html",
     "format": "interactive-html"
+  },
+  {
+    "name": "ABOUT & CAPTURE",
+    "path": "about-capture/index.html",
+    "format": "interactive-html"
   }
 ]
