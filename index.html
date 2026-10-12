@@ -1,148 +1,715 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="HUFF Web Classic — a real-time video instrument for camera and video input, live image processing, feedback, and glitch effects.">
-<title>HUFF Web Classic</title>
-<style>
-:root{--red:#FB4146;--ink:#171717;--paper:#fff;--max:1320px}
-*{box-sizing:border-box}body{margin:0;background:var(--red);color:var(--ink);font:16px/1.5 Arial,Helvetica,sans-serif}a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
-.container{width:min(var(--max),calc(100% - 48px));margin-inline:auto}
-.hero{display:flex;flex-direction:column;align-items:center;text-align:center;padding:40px 0 38px;border-bottom:3px solid var(--ink)}.hero-logo{display:block;width:clamp(180px,30vw,340px);height:auto}.hero h1{font:900 clamp(20px,3vw,30px)/1.1 'Courier New',monospace;text-transform:uppercase;letter-spacing:.04em;margin:10px 0 24px}
-.links{display:flex;flex-wrap:wrap;justify-content:center;align-items:stretch;gap:13px;width:100%;max-width:1040px}.links>.link-card{flex:0 1 247px}.link-card{position:relative;display:flex;align-items:center;justify-content:center;min-height:84px;background:#fff;border:2px solid var(--ink);padding:18px 43px 18px 18px;text-decoration:none;font:900 clamp(15px,1.6vw,19px)/1.25 'Courier New',monospace;text-transform:uppercase;transition:background-color .15s}.link-card:hover{background:#f1f1f1}.link-card .arrow{position:absolute;right:13px;top:10px;font:700 26px/1 Arial,sans-serif}.link-card-empty{border:2px dashed #17171777;background:transparent;color:#171717;min-height:84px;display:flex;align-items:center;justify-content:center;font:700 13px 'Courier New',monospace;text-transform:uppercase}
-main{padding:36px 0 58px}.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;border-bottom:3px solid var(--ink);padding-bottom:12px;margin-bottom:18px}.section-head h2{font:900 clamp(24px,3.4vw,42px)/1.05 'Courier New',monospace;text-transform:uppercase;margin:0}.section-head span{font:700 12px 'Courier New',monospace;text-transform:uppercase}
-.media{background:var(--paper);border:2px solid var(--ink);padding:clamp(10px,2vw,20px)}.media-display{background:#101010;aspect-ratio:16/9;display:grid;place-items:center}.media-display iframe{width:100%;height:100%;border:0;display:block}.media-control-row{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-top:14px}.media-nav{background:#fff;border:2px solid var(--ink);padding:11px 16px;font:800 14px 'Courier New',monospace;cursor:pointer;min-height:44px}.media-nav:hover{background:#eee}.media-status{min-width:0;text-align:center}.media-caption{font:700 13px 'Courier New',monospace}.dots{display:flex;justify-content:center;gap:9px;margin-top:9px}.dot{width:14px;height:14px;border:2px solid var(--ink);background:#fff;cursor:pointer;padding:0}.dot[aria-current="true"]{background:var(--red)}
-.site-footer{border-top:3px solid var(--ink);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;padding:24px 0 32px;min-height:126px}.site-footer .huff{justify-self:start}.site-footer .huff img{width:68px;display:block}.site-footer .schwwaaa{grid-column:2;justify-self:center}.site-footer .schwwaaa img{display:block;width:150px;height:auto;margin:0 auto;border:0;object-fit:contain}
-@media(max-width:800px){.links>.link-card{flex-basis:calc(50% - 7px)}}
-@media(max-width:540px){.container{width:calc(100% - 28px)}.hero{padding-top:26px}.hero-logo{width:clamp(170px,48vw,230px)}.links{gap:9px}.links>.link-card{flex-basis:calc(50% - 5px)}.link-card{min-height:75px;padding:13px 34px 13px 10px;font-size:13px}.link-card .arrow{right:8px;top:9px;font-size:21px}.link-card-empty{min-height:75px}.section-head span{display:none}.media-control-row{grid-template-columns:1fr 1fr}.media-status{grid-column:1/-1;grid-row:1}.media-nav:first-child{grid-column:1;grid-row:2}.media-nav:last-child{grid-column:2;grid-row:2}}
-@media(prefers-reduced-motion:reduce){.link-card{transition:none}}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description"
+        content="HUFF Web Classic — a real-time video instrument for camera and video input, live image processing, feedback, and glitch effects.">
+    <title>HUFF Web Classic</title>
+    <style>
+        :root {
+            --red: #FB4146;
+            --ink: #171717;
+            --paper: #fff;
+            --max: 1320px
+        }
 
-/* GUI tour: separate from the original video carousel. */
-.gui-panel{background:var(--paper);border:2px solid var(--ink);padding:clamp(12px,2vw,22px)}
-.gui-stage{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(260px,1fr);border:2px solid var(--ink);background:#fff;min-height:410px}
-.gui-image-wrap{min-width:0;display:flex;align-items:center;justify-content:center;padding:clamp(12px,2vw,22px);background:#f1f1f1;border-right:2px solid var(--ink)}
-.gui-image-wrap img{display:block;width:100%;height:auto;max-height:540px;object-fit:contain}
-.gui-copy{min-width:0;display:flex;flex-direction:column;justify-content:center;padding:clamp(20px,3vw,45px)}
-.gui-copy .eyebrow{font:800 12px 'Courier New',monospace;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
-.gui-copy h3{font:900 clamp(24px,3.4vw,44px)/1.08 'Courier New',monospace;text-transform:uppercase;margin:0 0 18px}
-.gui-copy p{font:16px/1.55 Arial,Helvetica,sans-serif;margin:0 0 25px;max-width:38ch}
-.gui-copy .gui-ref{display:inline-flex;align-self:flex-start;gap:14px;align-items:center;border-bottom:2px solid #171717;text-decoration:none;font:800 13px 'Courier New',monospace;padding:8px 0}
-.gui-copy .gui-ref:hover{text-decoration:underline}
-.gui-controls{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:12px;margin-top:16px}
-.gui-counter{text-align:center;font:800 13px 'Courier New',monospace}
-.gui-dots{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:10px}
-.gui-dots .dot{width:13px;height:13px}
-@media(max-width:760px){.gui-stage{grid-template-columns:1fr}.gui-image-wrap{border-right:0;border-bottom:2px solid var(--ink);min-height:180px}.gui-copy{padding:20px}.gui-copy h3{font-size:27px}.gui-stage{min-height:0}}
-@media(max-width:540px){.gui-controls{grid-template-columns:1fr 1fr}.gui-counter{grid-column:1/-1;grid-row:1}.gui-controls .media-nav:first-child{grid-column:1;grid-row:2}.gui-controls .media-nav:last-child{grid-column:2;grid-row:2}}
+        * {
+            box-sizing: border-box
+        }
 
-/* Expand GUI slides without changing either carousel's navigation. */
-.gui-expand{border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:0;width:100%;cursor:zoom-in;font:800 12px 'Courier New',monospace;color:var(--ink)}
-.gui-expand img{display:block;width:100%;height:auto;max-height:540px;object-fit:contain}
-.gui-expand .expand-hint{align-self:flex-end;text-transform:uppercase}
-.gui-expand:hover .expand-hint{text-decoration:underline}
-.gui-modal{border:2px solid var(--ink);background:#fff;padding:14px;width:min(96vw,1600px);max-width:96vw;max-height:94vh;overflow:auto}
-.gui-modal::backdrop{background:rgba(0,0,0,.85)}
-.gui-modal-top{display:flex;justify-content:space-between;align-items:center;gap:20px;border-bottom:2px solid var(--ink);padding-bottom:12px;margin-bottom:12px;font:800 15px 'Courier New',monospace}
-.gui-modal-top button{background:#fff;border:2px solid var(--ink);padding:9px 14px;cursor:pointer;font:800 13px 'Courier New',monospace}
-.gui-modal>img{display:block;width:100%;height:auto;max-height:calc(94vh - 105px);object-fit:contain}
-@media(max-width:540px){.gui-modal{padding:9px}.gui-modal-top{font-size:12px}.gui-modal-top button{padding:8px}}
+        body {
+            margin: 0;
+            background: var(--red);
+            color: var(--ink);
+            font: 16px/1.5 Arial, Helvetica, sans-serif
+        }
 
-/* SHARED HUFF RESOURCE MENU — landing and reference library */
-.links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    gap: 13px;
-    width: 100%;
-    max-width: none;
-    margin-inline: auto;
-}
-.links > .link-card {
-    flex: 0 1 calc((100% - 39px) / 4);
-    min-width: 0;
-    min-height: 84px;
-    padding: 18px 43px 18px 18px;
-    font-size: clamp(15px, 1.6vw, 19px);
-}
-.link-card .arrow { right: 13px; top: 10px; font-size: 26px; }
-@media (max-width: 850px) {
-    .links > .link-card { flex-basis: calc((100% - 13px) / 2); }
-}
-@media (max-width: 540px) {
-    .links { gap: 9px; }
-    .links > .link-card {
-        flex-basis: 100%;
-        min-height: 75px;
-        padding: 13px 34px 13px 12px;
-        font-size: 15px;
-    }
-    .link-card .arrow { right: 10px; top: 9px; font-size: 22px; }
-}
-</style>
+        a {
+            color: inherit
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--ink);
+            outline-offset: 3px
+        }
+
+        .container {
+            width: min(var(--max), calc(100% - 48px));
+            margin-inline: auto
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 0 38px;
+            border-bottom: 3px solid var(--ink)
+        }
+
+        .hero-logo {
+            display: block;
+            width: clamp(180px, 30vw, 340px);
+            height: auto
+        }
+
+        .hero h1 {
+            font: 900 clamp(20px, 3vw, 30px)/1.1 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            margin: 10px 0 24px
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 13px;
+            width: 100%;
+            max-width: 1040px
+        }
+
+        .links>.link-card {
+            flex: 0 1 247px
+        }
+
+        .link-card {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 84px;
+            background: #fff;
+            border: 2px solid var(--ink);
+            padding: 18px 43px 18px 18px;
+            text-decoration: none;
+            font: 900 clamp(15px, 1.6vw, 19px)/1.25 'Courier New', monospace;
+            text-transform: uppercase;
+            transition: background-color .15s
+        }
+
+        .link-card:hover {
+            background: #f1f1f1
+        }
+
+        .link-card .arrow {
+            position: absolute;
+            right: 13px;
+            top: 10px;
+            font: 700 26px/1 Arial, sans-serif
+        }
+
+        .link-card-empty {
+            border: 2px dashed #17171777;
+            background: transparent;
+            color: #171717;
+            min-height: 84px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font: 700 13px 'Courier New', monospace;
+            text-transform: uppercase
+        }
+
+        main {
+            padding: 36px 0 58px
+        }
+
+        .section-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 14px;
+            border-bottom: 3px solid var(--ink);
+            padding-bottom: 12px;
+            margin-bottom: 18px
+        }
+
+        .section-head h2 {
+            font: 900 clamp(24px, 3.4vw, 42px)/1.05 'Courier New', monospace;
+            text-transform: uppercase;
+            margin: 0
+        }
+
+        .section-head span {
+            font: 700 12px 'Courier New', monospace;
+            text-transform: uppercase
+        }
+
+        .media {
+            background: var(--paper);
+            border: 2px solid var(--ink);
+            padding: clamp(10px, 2vw, 20px)
+        }
+
+        .media-display {
+            background: #101010;
+            aspect-ratio: 16/9;
+            display: grid;
+            place-items: center
+        }
+
+        .media-display iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block
+        }
+
+        .media-control-row {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px
+        }
+
+        .media-nav {
+            background: #fff;
+            border: 2px solid var(--ink);
+            padding: 11px 16px;
+            font: 800 14px 'Courier New', monospace;
+            cursor: pointer;
+            min-height: 44px
+        }
+
+        .media-nav:hover {
+            background: #eee
+        }
+
+        .media-status {
+            min-width: 0;
+            text-align: center
+        }
+
+        .media-caption {
+            font: 700 13px 'Courier New', monospace
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 9px;
+            margin-top: 9px
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border: 2px solid var(--ink);
+            background: #fff;
+            cursor: pointer;
+            padding: 0
+        }
+
+        .dot[aria-current="true"] {
+            background: var(--red)
+        }
+
+        .site-footer {
+            border-top: 3px solid var(--ink);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 20px;
+            padding: 24px 0 32px;
+            min-height: 126px
+        }
+
+        .site-footer .huff {
+            justify-self: start
+        }
+
+        .site-footer .huff img {
+            width: 68px;
+            display: block
+        }
+
+        .site-footer .schwwaaa {
+            grid-column: 2;
+            justify-self: center
+        }
+
+        .site-footer .schwwaaa img {
+            display: block;
+            width: 150px;
+            height: auto;
+            margin: 0 auto;
+            border: 0;
+            object-fit: contain
+        }
+
+        @media(max-width:800px) {
+            .links>.link-card {
+                flex-basis: calc(50% - 7px)
+            }
+        }
+
+        @media(max-width:540px) {
+            .container {
+                width: calc(100% - 28px)
+            }
+
+            .hero {
+                padding-top: 26px
+            }
+
+            .hero-logo {
+                width: clamp(170px, 48vw, 230px)
+            }
+
+            .links {
+                gap: 9px
+            }
+
+            .links>.link-card {
+                flex-basis: calc(50% - 5px)
+            }
+
+            .link-card {
+                min-height: 75px;
+                padding: 13px 34px 13px 10px;
+                font-size: 13px
+            }
+
+            .link-card .arrow {
+                right: 8px;
+                top: 9px;
+                font-size: 21px
+            }
+
+            .link-card-empty {
+                min-height: 75px
+            }
+
+            .section-head span {
+                display: none
+            }
+
+            .media-control-row {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .media-status {
+                grid-column: 1/-1;
+                grid-row: 1
+            }
+
+            .media-nav:first-child {
+                grid-column: 1;
+                grid-row: 2
+            }
+
+            .media-nav:last-child {
+                grid-column: 2;
+                grid-row: 2
+            }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            .link-card {
+                transition: none
+            }
+        }
+
+        /* GUI tour: separate from the original video carousel. */
+        .gui-panel {
+            background: var(--paper);
+            border: 2px solid var(--ink);
+            padding: clamp(12px, 2vw, 22px)
+        }
+
+        .gui-stage {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
+            border: 2px solid var(--ink);
+            background: #fff;
+            min-height: 410px
+        }
+
+        .gui-image-wrap {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(12px, 2vw, 22px);
+            background: #f1f1f1;
+            border-right: 2px solid var(--ink)
+        }
+
+        .gui-image-wrap img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 540px;
+            object-fit: contain
+        }
+
+        .gui-copy {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(20px, 3vw, 45px)
+        }
+
+        .gui-copy .eyebrow {
+            font: 800 12px 'Courier New', monospace;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 12px
+        }
+
+        .gui-copy h3 {
+            font: 900 clamp(24px, 3.4vw, 44px)/1.08 'Courier New', monospace;
+            text-transform: uppercase;
+            margin: 0 0 18px
+        }
+
+        .gui-copy p {
+            font: 16px/1.55 Arial, Helvetica, sans-serif;
+            margin: 0 0 25px;
+            max-width: 38ch
+        }
+
+        .gui-copy .gui-ref {
+            display: inline-flex;
+            align-self: flex-start;
+            gap: 14px;
+            align-items: center;
+            border-bottom: 2px solid #171717;
+            text-decoration: none;
+            font: 800 13px 'Courier New', monospace;
+            padding: 8px 0
+        }
+
+        .gui-copy .gui-ref:hover {
+            text-decoration: underline
+        }
+
+        .gui-controls {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            gap: 12px;
+            margin-top: 16px
+        }
+
+        .gui-counter {
+            text-align: center;
+            font: 800 13px 'Courier New', monospace
+        }
+
+        .gui-dots {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px
+        }
+
+        .gui-dots .dot {
+            width: 13px;
+            height: 13px
+        }
+
+        @media(max-width:760px) {
+            .gui-stage {
+                grid-template-columns: 1fr
+            }
+
+            .gui-image-wrap {
+                border-right: 0;
+                border-bottom: 2px solid var(--ink);
+                min-height: 180px
+            }
+
+            .gui-copy {
+                padding: 20px
+            }
+
+            .gui-copy h3 {
+                font-size: 27px
+            }
+
+            .gui-stage {
+                min-height: 0
+            }
+        }
+
+        @media(max-width:540px) {
+            .gui-controls {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .gui-counter {
+                grid-column: 1/-1;
+                grid-row: 1
+            }
+
+            .gui-controls .media-nav:first-child {
+                grid-column: 1;
+                grid-row: 2
+            }
+
+            .gui-controls .media-nav:last-child {
+                grid-column: 2;
+                grid-row: 2
+            }
+        }
+
+        /* Expand GUI slides without changing either carousel's navigation. */
+        .gui-expand {
+            border: 0;
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 0;
+            width: 100%;
+            cursor: zoom-in;
+            font: 800 12px 'Courier New', monospace;
+            color: var(--ink)
+        }
+
+        .gui-expand img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 540px;
+            object-fit: contain
+        }
+
+        .gui-expand .expand-hint {
+            align-self: flex-end;
+            text-transform: uppercase
+        }
+
+        .gui-expand:hover .expand-hint {
+            text-decoration: underline
+        }
+
+        .gui-modal {
+            border: 2px solid var(--ink);
+            background: #fff;
+            padding: 14px;
+            width: min(96vw, 1600px);
+            max-width: 96vw;
+            max-height: 94vh;
+            overflow: auto
+        }
+
+        .gui-modal::backdrop {
+            background: rgba(0, 0, 0, .85)
+        }
+
+        .gui-modal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            border-bottom: 2px solid var(--ink);
+            padding-bottom: 12px;
+            margin-bottom: 12px;
+            font: 800 15px 'Courier New', monospace
+        }
+
+        .gui-modal-top button {
+            background: #fff;
+            border: 2px solid var(--ink);
+            padding: 9px 14px;
+            cursor: pointer;
+            font: 800 13px 'Courier New', monospace
+        }
+
+        .gui-modal>img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: calc(94vh - 105px);
+            object-fit: contain
+        }
+
+        @media(max-width:540px) {
+            .gui-modal {
+                padding: 9px
+            }
+
+            .gui-modal-top {
+                font-size: 12px
+            }
+
+            .gui-modal-top button {
+                padding: 8px
+            }
+        }
+
+        /* SHARED HUFF RESOURCE MENU — landing and reference library */
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            gap: 13px;
+            width: 100%;
+            max-width: none;
+            margin-inline: auto;
+        }
+
+        .links>.link-card {
+            flex: 0 1 calc((100% - 39px) / 4);
+            min-width: 0;
+            min-height: 84px;
+            padding: 18px 43px 18px 18px;
+            font-size: clamp(15px, 1.6vw, 19px);
+        }
+
+        .link-card .arrow {
+            right: 13px;
+            top: 10px;
+            font-size: 26px;
+        }
+
+        @media (max-width: 850px) {
+            .links>.link-card {
+                flex-basis: calc((100% - 13px) / 2);
+            }
+        }
+
+        @media (max-width: 540px) {
+            .links {
+                gap: 9px;
+            }
+
+            .links>.link-card {
+                flex-basis: 100%;
+                min-height: 75px;
+                padding: 13px 34px 13px 12px;
+                font-size: 15px;
+            }
+
+            .link-card .arrow {
+                right: 10px;
+                top: 9px;
+                font-size: 22px;
+            }
+        }
+
+        /* Even section rhythm: each divider sits midway between adjacent blocks. */
+        :root { --section-space: clamp(24px, 3vw, 40px); }
+        .hero { padding-bottom: var(--section-space); }
+        main { padding-top: var(--section-space); padding-bottom: var(--section-space); }
+        #interface {
+            border-bottom: 3px solid var(--ink);
+            padding-bottom: var(--section-space);
+            margin-bottom: var(--section-space);
+        }
+        .site-footer { padding-top: var(--section-space); }
+    </style>
 </head>
+
 <body>
-<header class="container hero">
-<img class="hero-logo" src="huff-icon.jpg" alt="HUFF logo">
-<h1>HUFF Web Classic</h1>
-<div class="links" aria-label="HUFF resources">
-<a class="link-card" href="https://github.com/schwwaaa/huff#readme" target="_blank" rel="noopener noreferrer">Docs <span class="arrow" aria-hidden="true">↗</span></a>
-<a class="link-card" href="reference/index.html">Reference <span class="arrow" aria-hidden="true">↗</span></a>
-<a class="link-card" href="https://github.com/schwwaaa/huff" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
-<a class="link-card" href="https://schwwaaa.gumroad.com/l/huff" target="_blank" rel="noopener noreferrer">Get HUFF <span class="arrow" aria-hidden="true">↗</span></a>
-<!-- To add another resource, copy a link-card anchor into this links container. -->
-</div>
-</header>
-<main class="container"><section aria-labelledby="media-heading"><div class="section-head"><h2 id="media-heading">HUFF / Media</h2></div>
-<div class="media"><div class="media-display" id="mediaSlide" aria-label="HUFF demonstration video"></div><div class="media-control-row"><button class="media-nav" id="prevBtn" type="button" aria-label="Previous video">← Previous</button><div class="media-status"><div class="media-caption" id="slideCaption" aria-live="polite"></div><div class="dots" id="carouselDots" aria-label="Select a video"></div></div><button class="media-nav" id="nextBtn" type="button" aria-label="Next video">Next →</button></div></div>
-</section>
-<section id="interface" aria-labelledby="gui-heading" style="margin-top:46px">
-<div class="section-head"><h2 id="gui-heading">HUFF / Interface</h2></div>
-<div class="gui-panel">
-<div class="gui-stage">
-<div class="gui-image-wrap"><button class="gui-expand" id="guiExpand" type="button" aria-label="Enlarge interface image"><img id="guiImage" src="huff-icon.jpg" alt="HUFF logo" loading="lazy"><span class="expand-hint" aria-hidden="true">↗ Enlarge image</span></button></div>
-<div class="gui-copy"><div class="eyebrow" id="guiEyebrow">01 / GUI OVERVIEW</div><h3 id="guiTitle">GUI control sections</h3><p id="guiText">Browse the interface by section.</p><a class="gui-ref" id="guiReference" href="reference/index.html">Explore reference <span aria-hidden="true">↗</span></a></div>
-</div>
-<div class="gui-controls"><button class="media-nav" type="button" id="guiPrev" aria-label="Previous interface section">← Previous</button><div><div class="gui-counter" id="guiCounter" aria-live="polite"></div><div class="gui-dots" id="guiDots" aria-label="Select interface section"></div></div><button class="media-nav" type="button" id="guiNext" aria-label="Next interface section">Next →</button></div>
-</div></section>
-<dialog id="guiModal" class="gui-modal" aria-label="Enlarged HUFF interface image">
-<div class="gui-modal-top"><strong id="guiModalLabel">HUFF interface</strong><button type="button" id="guiModalClose" aria-label="Close enlarged image">✕ Close</button></div>
-<img id="guiModalImage" alt="">
-</dialog>
-</main>
-<footer class="container site-footer"><a class="huff" href="index.html" aria-label="Back to HUFF home"><img src="huff-icon.jpg" alt="HUFF"></a><a class="schwwaaa" href="https://linktr.ee/schwwaaa" target="_blank" rel="noopener noreferrer" aria-label="Visit schwwaaa"><img src="schwwaaa-logo.png" alt="schwwaaa"></a></footer>
-<script>
-// Four original media sources, in their original order.
-const slides=[
-{src:'https://www.youtube.com/watch?v=5Py3dMdGEeI',label:'huff demo 3'},
-{src:'https://www.youtube.com/watch?v=PH-qa_fGfB0',label:'huff demo 4'},
-{src:'https://www.youtube.com/watch?v=uEWgphQWQa8',label:'huff demo 1'},
-{src:'https://www.youtube.com/watch?v=MCp6U6-Jzao',label:'huff demo 2'}
-];
-let current=0;
-const slideEl=document.getElementById('mediaSlide'),captionEl=document.getElementById('slideCaption'),dotsEl=document.getElementById('carouselDots');
-function youtubeID(url){const m=url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);return m?m[1]:null}
-function render(){const s=slides[current],id=youtubeID(s.src);slideEl.replaceChildren();if(id){const f=document.createElement('iframe');f.src=`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;f.title=`HUFF video example: ${s.label}`;f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';f.allowFullscreen=true;f.referrerPolicy='strict-origin-when-cross-origin';slideEl.append(f)}captionEl.textContent=`${current+1} of ${slides.length} — ${s.label}`;dotsEl.replaceChildren();slides.forEach((item,i)=>{const b=document.createElement('button');b.type='button';b.className='dot';b.setAttribute('aria-label',`Show ${item.label}`);b.setAttribute('aria-current',String(i===current));b.addEventListener('click',()=>{current=i;render()});dotsEl.append(b)})}
-document.getElementById('prevBtn').addEventListener('click',()=>{current=(current-1+slides.length)%slides.length;render()});
-document.getElementById('nextBtn').addEventListener('click',()=>{current=(current+1)%slides.length;render()});render();
-</script>
-<script>
-// GUI tour intentionally separate from the existing YouTube carousel.
-const guiSlides=[{"section":"HUFF WEB CLASSIC","title":"HUFF Web Classic","description":"A real-time video instrument for working with moving images. Load a video or use a camera, then manipulate the picture with live effects, feedback, compositing, and spatial transformations. Explore the controls in the following slides.","image":"huff-icon.jpg","link":"reference/index.html","alt":"HUFF Web Classic logo"},{"section": "GUI OVERVIEW", "title": "GUI control sections", "description": "An overview assembled from the existing HUFF control screenshots. These are the main sections you work with while shaping a video.", "image": "assets/gui-sections-overview.webp", "link": "reference/index.html", "alt": "Overview assembled from HUFF control screenshots, not one full application screenshot"}, {"section": "SOURCE", "title": "Choose what HUFF sees", "description": "Use a camera or video file as the starting image. The source controls handle playback and the base video layer.", "image": "reference/source/assets/source-original.png", "link": "reference/source/index.html", "alt": "SOURCE HUFF interface screenshot"}, {"section": "PRESETS", "title": "Keep your favorite setups", "description": "Save and recall configurations, so a particular combination of effects is easy to return to.", "image": "reference/presets/assets/presets-original.png", "link": "reference/presets/index.html", "alt": "PRESETS HUFF interface screenshot"}, {"section": "PIPELINE", "title": "Choose how effects are arranged", "description": "The pipeline controls which processing stages run and how they are ordered.", "image": "reference/pipeline/assets/pipeline-original.png", "link": "reference/pipeline/index.html", "alt": "PIPELINE HUFF interface screenshot"}, {"section": "VISTA", "title": "Rearrange parts of the image", "description": "Build moving regions from previous frames, then vary their spacing, placement, and timing.", "image": "reference/vista/assets/vista-main.png", "link": "reference/vista/index.html", "alt": "VISTA HUFF interface screenshot"}, {"section": "PANELING", "title": "Break the frame into panels", "description": "Create bands or a field of panels, then shift, expand, skew, and animate their positions.", "image": "reference/paneling/assets/paneling-bands.png", "link": "reference/paneling/index.html", "alt": "PANELING HUFF interface screenshot"}, {"section": "PANELING / FIELD", "title": "Make a field of moving panels", "description": "Field mode distributes image panels across the frame, with separate spatial controls.", "image": "reference/paneling/assets/paneling-field.png", "link": "reference/paneling/index.html", "alt": "PANELING / FIELD HUFF interface screenshot"}, {"section": "SYMMETRY", "title": "Reflect and reposition", "description": "Mirror the picture across horizontal or vertical axes and move the dividing line.", "image": "reference/symmetry/assets/symmetry-original.png", "link": "reference/symmetry/index.html", "alt": "SYMMETRY HUFF interface screenshot"}, {"section": "GLOBAL MIX", "title": "Bring the image layers together", "description": "Select a blend mode and set how strongly the processed picture mixes with the source.", "image": "reference/global-mix/assets/global-mix-original.png", "link": "reference/global-mix/index.html", "alt": "GLOBAL MIX HUFF interface screenshot"}, {"section": "FEEDBACK", "title": "Send the image back into itself", "description": "Repeat recent frames to form trails, drifting patterns, and feedback motion.", "image": "reference/feedback/assets/feedback-original.png", "link": "reference/feedback/index.html", "alt": "FEEDBACK HUFF interface screenshot"}, {"section": "LUMA KEY", "title": "Use brightness as a mask", "description": "Control which parts of an image pass through using brightness, then adjust the edge and density.", "image": "reference/luma-key/assets/luma-key-original.png", "link": "reference/luma-key/index.html", "alt": "LUMA KEY HUFF interface screenshot"}, {"section": "SOLARIZE", "title": "Change how brightness becomes color", "description": "Use a threshold and per-channel controls to alter the image’s tones.", "image": "reference/solarize/assets/solarize-original.png", "link": "reference/solarize/index.html", "alt": "SOLARIZE HUFF interface screenshot"}, {"section": "SIFT", "title": "Push the image out of shape", "description": "Pull, swirl, and disturb the image with displacement and turbulence.", "image": "reference/sift/assets/sift-original.png", "link": "reference/sift/index.html", "alt": "SIFT HUFF interface screenshot"}];
-let guiIndex=0;
-const guiEls={image:document.getElementById('guiImage'),eyebrow:document.getElementById('guiEyebrow'),title:document.getElementById('guiTitle'),text:document.getElementById('guiText'),reference:document.getElementById('guiReference'),counter:document.getElementById('guiCounter'),dots:document.getElementById('guiDots')};
-function renderGUI(){const s=guiSlides[guiIndex];guiEls.image.src=s.image;guiEls.image.alt=s.alt;guiEls.eyebrow.textContent=`${String(guiIndex).padStart(2,'0')} / ${s.section}`;guiEls.title.textContent=s.title;guiEls.text.textContent=s.description;guiEls.reference.href=s.link;guiEls.reference.firstChild.textContent=guiIndex===0?'Explore reference ':'See this reference ';guiEls.counter.textContent=`${guiIndex+1} of ${guiSlides.length}`;guiEls.dots.replaceChildren();guiSlides.forEach((item,i)=>{const b=document.createElement('button');b.type='button';b.className='dot';b.setAttribute('aria-label',`Show ${item.section}`);b.setAttribute('aria-current',String(i===guiIndex));b.addEventListener('click',()=>{guiIndex=i;renderGUI()});guiEls.dots.append(b)})}
-document.getElementById('guiPrev').addEventListener('click',()=>{guiIndex=(guiIndex-1+guiSlides.length)%guiSlides.length;renderGUI()});document.getElementById('guiNext').addEventListener('click',()=>{guiIndex=(guiIndex+1)%guiSlides.length;renderGUI()});renderGUI();
-const guiModal=document.getElementById('guiModal');
-document.getElementById('guiExpand').addEventListener('click',()=>{
-  const item=guiSlides[guiIndex];
-  document.getElementById('guiModalImage').src=item.image;
-  document.getElementById('guiModalImage').alt=item.alt;
-  document.getElementById('guiModalLabel').textContent=item.section;
-  guiModal.showModal();
-});
-document.getElementById('guiModalClose').addEventListener('click',()=>guiModal.close());
-guiModal.addEventListener('click',(event)=>{if(event.target===guiModal)guiModal.close()});
-</script>
-</body></html>
+    <header class="container hero">
+        <img class="hero-logo" src="huff-icon.jpg" alt="HUFF logo">
+        <h1>HUFF Web Classic</h1>
+        <div class="links" aria-label="HUFF resources">
+            <a class="link-card" href="https://github.com/schwwaaa/huff#readme" target="_blank"
+                rel="noopener noreferrer">Docs <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="link-card" href="reference/index.html">Reference <span class="arrow"
+                    aria-hidden="true">↗</span></a>
+            <a class="link-card" href="https://github.com/schwwaaa/huff" target="_blank"
+                rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
+            <a class="link-card" href="https://schwwaaa.gumroad.com/l/huff" target="_blank"
+                rel="noopener noreferrer">Get HUFF <span class="arrow" aria-hidden="true">↗</span></a>
+            <!-- To add another resource, copy a link-card anchor into this links container. -->
+        </div>
+    </header>
+    <main class="container">
+        <section id="interface" aria-labelledby="gui-heading">
+            <div class="gui-panel">
+                <div class="gui-stage">
+                    <div class="gui-image-wrap"><button class="gui-expand" id="guiExpand" type="button"
+                            aria-label="Enlarge interface image"><img id="guiImage" src="huff-icon.jpg" alt="HUFF logo"
+                                loading="lazy"><span class="expand-hint" aria-hidden="true">↗ Enlarge
+                                image</span></button></div>
+                    <div class="gui-copy">
+                        <div class="eyebrow" id="guiEyebrow">01 / GUI OVERVIEW</div>
+                        <h3 id="guiTitle">GUI control sections</h3>
+                        <p id="guiText">Browse the interface by section.</p><a class="gui-ref" id="guiReference"
+                            href="reference/index.html">Explore reference <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
+                <div class="gui-controls"><button class="media-nav" type="button" id="guiPrev"
+                        aria-label="Previous interface section">← Previous</button>
+                    <div>
+                        <div class="gui-counter" id="guiCounter" aria-live="polite"></div>
+                        <div class="gui-dots" id="guiDots" aria-label="Select interface section"></div>
+                    </div><button class="media-nav" type="button" id="guiNext" aria-label="Next interface section">Next
+                        →</button>
+                </div>
+            </div>
+        </section>
+        <section aria-labelledby="media-heading">
+            <div class="media">
+                <div class="media-display" id="mediaSlide" aria-label="HUFF demonstration video"></div>
+                <div class="media-control-row"><button class="media-nav" id="prevBtn" type="button"
+                        aria-label="Previous video">← Previous</button>
+                    <div class="media-status">
+                        <div class="media-caption" id="slideCaption" aria-live="polite"></div>
+                        <div class="dots" id="carouselDots" aria-label="Select a video"></div>
+                    </div><button class="media-nav" id="nextBtn" type="button" aria-label="Next video">Next →</button>
+                </div>
+            </div>
+        </section>        
+        <dialog id="guiModal" class="gui-modal" aria-label="Enlarged HUFF interface image">
+            <div class="gui-modal-top"><strong id="guiModalLabel">HUFF interface</strong><button type="button"
+                    id="guiModalClose" aria-label="Close enlarged image">✕ Close</button></div>
+            <img id="guiModalImage" alt="">
+        </dialog>
+    </main>
+    <footer class="container site-footer"><a class="huff" href="index.html" aria-label="Back to HUFF home"><img
+                src="huff-icon.jpg" alt="HUFF"></a><a class="schwwaaa" href="https://linktr.ee/schwwaaa" target="_blank"
+            rel="noopener noreferrer" aria-label="Visit schwwaaa"><img src="schwwaaa-logo.png" alt="schwwaaa"></a>
+    </footer>
+    <script>
+        // Four original media sources, in their original order.
+        const slides = [
+            { src: 'https://www.youtube.com/watch?v=5Py3dMdGEeI', label: 'huff demo 3' },
+            { src: 'https://www.youtube.com/watch?v=PH-qa_fGfB0', label: 'huff demo 4' },
+            { src: 'https://www.youtube.com/watch?v=uEWgphQWQa8', label: 'huff demo 1' },
+            { src: 'https://www.youtube.com/watch?v=MCp6U6-Jzao', label: 'huff demo 2' }
+        ];
+        let current = 0;
+        const slideEl = document.getElementById('mediaSlide'), captionEl = document.getElementById('slideCaption'), dotsEl = document.getElementById('carouselDots');
+        function youtubeID(url) { const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/); return m ? m[1] : null }
+        function render() { const s = slides[current], id = youtubeID(s.src); slideEl.replaceChildren(); if (id) { const f = document.createElement('iframe'); f.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`; f.title = `HUFF video example: ${s.label}`; f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'; f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin'; slideEl.append(f) } captionEl.textContent = `${current + 1} of ${slides.length} — ${s.label}`; dotsEl.replaceChildren(); slides.forEach((item, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'dot'; b.setAttribute('aria-label', `Show ${item.label}`); b.setAttribute('aria-current', String(i === current)); b.addEventListener('click', () => { current = i; render() }); dotsEl.append(b) }) }
+        document.getElementById('prevBtn').addEventListener('click', () => { current = (current - 1 + slides.length) % slides.length; render() });
+        document.getElementById('nextBtn').addEventListener('click', () => { current = (current + 1) % slides.length; render() }); render();
+    </script>
+    <script>
+        // GUI tour intentionally separate from the existing YouTube carousel.
+        const guiSlides = [{ "section": "HUFF WEB CLASSIC", "title": "HUFF Web Classic", "description": "A real-time video instrument for working with moving images. Load a video or use a camera, then manipulate the picture with live effects, feedback, compositing, and spatial transformations. Explore the controls in the following slides.", "image": "huff-icon.jpg", "link": "reference/index.html", "alt": "HUFF Web Classic logo" }, { "section": "GUI OVERVIEW", "title": "GUI control sections", "description": "An overview assembled from the existing HUFF control screenshots. These are the main sections you work with while shaping a video.", "image": "assets/gui-sections-overview.webp", "link": "reference/index.html", "alt": "Overview assembled from HUFF control screenshots, not one full application screenshot" }, { "section": "SOURCE", "title": "Choose what HUFF sees", "description": "Use a camera or video file as the starting image. The source controls handle playback and the base video layer.", "image": "reference/source/assets/source-original.png", "link": "reference/source/index.html", "alt": "SOURCE HUFF interface screenshot" }, { "section": "PRESETS", "title": "Keep your favorite setups", "description": "Save and recall configurations, so a particular combination of effects is easy to return to.", "image": "reference/presets/assets/presets-original.png", "link": "reference/presets/index.html", "alt": "PRESETS HUFF interface screenshot" }, { "section": "PIPELINE", "title": "Choose how effects are arranged", "description": "The pipeline controls which processing stages run and how they are ordered.", "image": "reference/pipeline/assets/pipeline-original.png", "link": "reference/pipeline/index.html", "alt": "PIPELINE HUFF interface screenshot" }, { "section": "VISTA", "title": "Rearrange parts of the image", "description": "Build moving regions from previous frames, then vary their spacing, placement, and timing.", "image": "reference/vista/assets/vista-main.png", "link": "reference/vista/index.html", "alt": "VISTA HUFF interface screenshot" }, { "section": "PANELING", "title": "Break the frame into panels", "description": "Create bands or a field of panels, then shift, expand, skew, and animate their positions.", "image": "reference/paneling/assets/paneling-bands.png", "link": "reference/paneling/index.html", "alt": "PANELING HUFF interface screenshot" }, { "section": "PANELING / FIELD", "title": "Make a field of moving panels", "description": "Field mode distributes image panels across the frame, with separate spatial controls.", "image": "reference/paneling/assets/paneling-field.png", "link": "reference/paneling/index.html", "alt": "PANELING / FIELD HUFF interface screenshot" }, { "section": "SYMMETRY", "title": "Reflect and reposition", "description": "Mirror the picture across horizontal or vertical axes and move the dividing line.", "image": "reference/symmetry/assets/symmetry-original.png", "link": "reference/symmetry/index.html", "alt": "SYMMETRY HUFF interface screenshot" }, { "section": "GLOBAL MIX", "title": "Bring the image layers together", "description": "Select a blend mode and set how strongly the processed picture mixes with the source.", "image": "reference/global-mix/assets/global-mix-original.png", "link": "reference/global-mix/index.html", "alt": "GLOBAL MIX HUFF interface screenshot" }, { "section": "FEEDBACK", "title": "Send the image back into itself", "description": "Repeat recent frames to form trails, drifting patterns, and feedback motion.", "image": "reference/feedback/assets/feedback-original.png", "link": "reference/feedback/index.html", "alt": "FEEDBACK HUFF interface screenshot" }, { "section": "LUMA KEY", "title": "Use brightness as a mask", "description": "Control which parts of an image pass through using brightness, then adjust the edge and density.", "image": "reference/luma-key/assets/luma-key-original.png", "link": "reference/luma-key/index.html", "alt": "LUMA KEY HUFF interface screenshot" }, { "section": "SOLARIZE", "title": "Change how brightness becomes color", "description": "Use a threshold and per-channel controls to alter the image’s tones.", "image": "reference/solarize/assets/solarize-original.png", "link": "reference/solarize/index.html", "alt": "SOLARIZE HUFF interface screenshot" }, { "section": "SIFT", "title": "Push the image out of shape", "description": "Pull, swirl, and disturb the image with displacement and turbulence.", "image": "reference/sift/assets/sift-original.png", "link": "reference/sift/index.html", "alt": "SIFT HUFF interface screenshot" }];
+        let guiIndex = 0;
+        const guiEls = { image: document.getElementById('guiImage'), eyebrow: document.getElementById('guiEyebrow'), title: document.getElementById('guiTitle'), text: document.getElementById('guiText'), reference: document.getElementById('guiReference'), counter: document.getElementById('guiCounter'), dots: document.getElementById('guiDots') };
+        function renderGUI() { const s = guiSlides[guiIndex]; guiEls.image.src = s.image; guiEls.image.alt = s.alt; guiEls.eyebrow.textContent = `${String(guiIndex).padStart(2, '0')} / ${s.section}`; guiEls.title.textContent = s.title; guiEls.text.textContent = s.description; guiEls.reference.href = s.link; guiEls.reference.firstChild.textContent = guiIndex === 0 ? 'Explore reference ' : 'See this reference '; guiEls.counter.textContent = `${guiIndex + 1} of ${guiSlides.length}`; guiEls.dots.replaceChildren(); guiSlides.forEach((item, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'dot'; b.setAttribute('aria-label', `Show ${item.section}`); b.setAttribute('aria-current', String(i === guiIndex)); b.addEventListener('click', () => { guiIndex = i; renderGUI() }); guiEls.dots.append(b) }) }
+        document.getElementById('guiPrev').addEventListener('click', () => { guiIndex = (guiIndex - 1 + guiSlides.length) % guiSlides.length; renderGUI() }); document.getElementById('guiNext').addEventListener('click', () => { guiIndex = (guiIndex + 1) % guiSlides.length; renderGUI() }); renderGUI();
+        const guiModal = document.getElementById('guiModal');
+        document.getElementById('guiExpand').addEventListener('click', () => {
+            const item = guiSlides[guiIndex];
+            document.getElementById('guiModalImage').src = item.image;
+            document.getElementById('guiModalImage').alt = item.alt;
+            document.getElementById('guiModalLabel').textContent = item.section;
+            guiModal.showModal();
+        });
+        document.getElementById('guiModalClose').addEventListener('click', () => guiModal.close());
+        guiModal.addEventListener('click', (event) => { if (event.target === guiModal) guiModal.close() });
+    </script>
+</body>
+
+</html>
