@@ -775,6 +775,21 @@
     .hero .link-card .arrow, .brand .link-card .arrow { top: 8px; right: 10px; font-size: 20px; }
 }
 
+
+/* Three-resource navigation: equal columns on desktop, adaptive on smaller screens. */
+.hero .links, .brand .links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+@media (max-width: 760px) and (min-width: 541px) {
+    .hero .links, .brand .links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .hero .links > .link-card:last-child, .brand .links > .link-card:last-child {
+        grid-column: 1 / -1;
+    }
+}
+@media (max-width: 540px) {
+    .hero .links, .brand .links { grid-template-columns: 1fr; }
+    .hero .links > .link-card:last-child, .brand .links > .link-card:last-child { grid-column: auto; }
+}
 </style>
 </head>
 
@@ -782,16 +797,14 @@
     <header class="container hero">
         <div class="masthead-product">HUFF WEB</div>
         <img class="hero-logo" src="huff-icon.jpg" alt="HUFF logo">
-        <h1 class="page-title">Home</h1>
+        <h1 class="page-title"></h1>
         <div class="links" aria-label="HUFF resources">
-            <a class="link-card" href="https://github.com/schwwaaa/huff#readme" target="_blank"
-                rel="noopener noreferrer">Docs <span class="arrow" aria-hidden="true">↗</span></a>
             <a class="link-card" href="reference/index.html">Reference <span class="arrow"
                     aria-hidden="true">↗</span></a>
+            <a class="link-card" href="https://schwwaaa.github.io/huff-web/" target="_blank"
+                rel="noopener noreferrer">Try Now<span class="arrow" aria-hidden="true">↗</span></a>                    
             <a class="link-card" href="https://github.com/schwwaaa/huff-web" target="_blank"
                 rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
-            <a class="link-card" href="https://schwwaaa.github.io/huff-web/" target="_blank"
-                rel="noopener noreferrer">Try Now<span class="arrow" aria-hidden="true">↗</span></a>
             <!-- To add another resource, copy a link-card anchor into this links container. -->
         </div>
     </header>
