@@ -1,0 +1,1 @@
+HUFF VISTA quick reference. Open index.html after extracting the ZIP. The order is VISTA diagram → VISTA definitions → Clusters diagram → Clusters definitions. Both images are original files. On narrow screens diagrams scroll horizontally; the definition lists reflow. The PDF export is provided by the browser Print/Save as PDF action.

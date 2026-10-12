@@ -1,0 +1,57 @@
+[
+  {
+    "name": "SOURCE",
+    "path": "source/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "PRESETS",
+    "path": "presets/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "PIPELINE",
+    "path": "pipeline/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "VISTA",
+    "path": "vista/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "PANELING",
+    "path": "paneling/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "SYMMETRY",
+    "path": "symmetry/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "GLOBAL MIX",
+    "path": "global-mix/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "FEEDBACK",
+    "path": "feedback/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "LUMA KEY",
+    "path": "luma-key/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "SOLARIZE",
+    "path": "solarize/index.html",
+    "format": "interactive-html"
+  },
+  {
+    "name": "SIFT",
+    "path": "sift/index.html",
+    "format": "interactive-html"
+  }
+]
