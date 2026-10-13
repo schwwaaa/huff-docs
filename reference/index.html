@@ -365,7 +365,17 @@
     .hero .links, .brand .links { grid-template-columns: 1fr; }
     .hero .links > .link-card:last-child, .brand .links > .link-card:last-child { grid-column: auto; }
 }
-</style>
+
+        /* Fixed vector glyph: identical on desktop and mobile. */
+        .huff-arrow-icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: -0.08em;
+            flex: none;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -373,71 +383,71 @@
         <div class="brand"><div class="masthead-product">HUFF WEB</div><a class="brand-home" href="../index.html" aria-label="Return to HUFF homepage"><img src="huff-icon.jpg" alt="HUFF logo"></a>
             <h1 class="brand-title page-title">Reference</h1>
             <div class="links" aria-label="HUFF resources">
-<a class="link-card" href="index.html">Reference <span class="arrow" aria-hidden="true">↗</span></a>
-<a class="link-card" href="https://github.com/schwwaaa/huff-web" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true">↗</span></a>
-<a class="link-card" href="https://schwwaaa.github.io/huff-web/" target="_blank" rel="noopener noreferrer">Try Now <span class="arrow" aria-hidden="true">↗</span></a>
+<a class="link-card" href="index.html">Reference <span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
+<a class="link-card" href="https://github.com/schwwaaa/huff-web" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
+<a class="link-card" href="https://schwwaaa.github.io/huff-web/" target="_blank" rel="noopener noreferrer">Try Now <span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
 <!-- To add another resource, copy a link-card anchor into this links container. -->
 </div>
         </div>
         <!-- <p class="lead">Annotated control references. Open a section to inspect the unmodified interface screenshot and corresponding control definitions.</p> -->
         <section class="grid">
             <a class="ref" href="source/index.html" aria-label="Open SOURCE quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>SOURCE</h2>
                 <p>Choose camera or file input, control playback, and adjust the base video layer.</p>
             </a>
             <a class="ref" href="presets/index.html" aria-label="Open PRESETS quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>PRESETS</h2>
                 <p>Choose, reset, save, and load effect configurations.</p>
             </a>
             <a class="ref" href="pipeline/index.html" aria-label="Open PIPELINE quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>PIPELINE</h2>
                 <p>Select recipes, set processing priority, and inspect the effect order.</p>
             </a>
             <a class="ref" href="vista/index.html" aria-label="Open VISTA quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>VISTA</h2>
                 <p>Control patch regions, timing, positioning, repetition, and clusters.</p>
             </a>
             <a class="ref" href="paneling/index.html" aria-label="Open PANELING quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>PANELING</h2>
                 <p>Arrange and transform video panels using Bands and Field modes.</p>
             </a>
             <a class="ref" href="symmetry/index.html" aria-label="Open SYMMETRY quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>SYMMETRY</h2>
                 <p>Mirror, flip, and reposition video across horizontal and vertical axes.</p>
             </a>
             <a class="ref" href="global-mix/index.html" aria-label="Open GLOBAL MIX quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>GLOBAL MIX</h2>
                 <p>Blend the processed image using mix, curve, and placement controls.</p>
             </a>
             <a class="ref" href="feedback/index.html" aria-label="Open FEEDBACK quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>FEEDBACK</h2>
                 <p>Shape recursive video trails, persistence, motion, and strobing.</p>
             </a>
             <a class="ref" href="luma-key/index.html" aria-label="Open LUMA KEY quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>LUMA KEY</h2>
                 <p>Key image regions by brightness, with masking and compositing controls.</p>
             </a>
             <a class="ref" href="solarize/index.html" aria-label="Open SOLARIZE quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>SOLARIZE</h2>
                 <p>Adjust solarization threshold, intensity, fluidity, and color channels.</p>
             </a>
             <a class="ref" href="sift/index.html" aria-label="Open SIFT quick reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>SIFT</h2>
                 <p>Displace and distort image regions with scale, motion, pulse, and turbulence.</p>
             </a>
             <a class="ref" href="about-capture/index.html" aria-label="Open ABOUT & CAPTURE HUFF reference">
-                <span class="external-arrow" aria-hidden="true">↗</span>
+                <span class="external-arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span>
                 <h2>ABOUT &amp; CAPTURE</h2>
                 <p>View application information and take screenshots in window, widescreen, standard, or vertical proportions.</p>
             </a>
