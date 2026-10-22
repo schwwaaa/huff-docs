@@ -1,146 +1,44 @@
-<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HUFF — SOURCE HUFF Web Reference</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HUFF — SOURCE Reference</title>
 <style>
-:root{--red:#fb383f;--ink:#161616;--line:#777;--paper:#fff;--pad:clamp(18px,3vw,42px)}*{box-sizing:border-box}html,body{margin:0;background:#e7e7e7;color:var(--ink);font-family:Arial,Helvetica,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer;padding:8px 11px;border:1px solid #222;background:#fff;color:#111}button:hover{background:#eee}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--red)}
-.toolbar{max-width:1580px;margin:auto;padding:14px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}.toolbar span{font-size:13px;color:#555;margin-left:5px}.hint{max-width:1580px;margin:0 auto 15px;padding:0 14px;color:#444;font-size:13px}
-.sheet{background:var(--paper);max-width:1580px;margin:0 auto 30px;padding:var(--pad);box-shadow:0 3px 24px #0002}.header{display:flex;align-items:baseline;justify-content:center;gap:14px;border-bottom:2px solid #222;padding-bottom:17px;margin-bottom:25px;font-weight:900;font-stretch:condensed;letter-spacing:-.035em;font-size:clamp(28px,4.2vw,54px);text-transform:uppercase}.header .block{color:var(--red)}
-.figure-block+.figure-block{margin-top:46px;padding-top:24px;border-top:2px solid #222}.section-title{font:700 19px/1.1 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px}.figure-scroll{overflow-x:auto;overscroll-behavior-x:contain;padding-bottom:4px}.figure{position:relative;padding:82px 56px 98px;min-width:1120px}.capture{width:100%;height:auto;display:block;border:1px solid #333;background:#ddd}.arrows{position:absolute;inset:0;width:100%;height:100%;overflow:visible;touch-action:none}.leader{stroke:var(--red);stroke-width:2.2;fill:none;stroke-linejoin:round;stroke-linecap:round;pointer-events:none}.node circle{fill:var(--red);stroke:white;stroke-width:2}.node text{fill:white;font-size:16px;font-weight:800;dominant-baseline:middle;text-anchor:middle;pointer-events:none}.node{cursor:grab}.node:active{cursor:grabbing}.hotspot{fill:var(--red);stroke:#fff;stroke-width:1.5;cursor:grab}.hotspot:active{cursor:grabbing}.editing .hotspot{opacity:1}.hotspot{opacity:0}.editing .node circle{filter:drop-shadow(0 0 2px #111)}
-.definitions{margin-top:8px;border-top:2px solid #222;padding-top:20px}.defs-title{font:700 18px/1 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin:0 0 14px}.legend-group+.legend-group{margin-top:24px}.legend-group-title{font:700 16px/1 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid #999}.legend{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0}.legend-col{padding:0 18px}.legend-col:first-child{padding-left:0}.legend-col:last-child{padding-right:0}.legend-col+.legend-col{border-left:1px solid #777}.entry{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:10px 0;min-height:74px}.entry+.entry{border-top:1px solid #aaa}.entry-no{display:grid;place-items:center;width:34px;height:34px;background:var(--red);color:white;border-radius:50%;font-weight:800}.entry h3{font-size:15px;margin:0 0 4px}.entry p{font-size:13px;line-height:1.35;margin:0}.entry input,.entry textarea{width:100%;border:1px solid #bbb;background:#fff;padding:4px}.entry textarea{min-height:56px;resize:vertical;font-size:13px}.footer{border-top:2px solid #222;margin-top:24px;padding:12px 0 34px;display:flex;align-items:flex-start;justify-content:flex-start}.footer img{width:42px;height:42px;object-fit:cover}
-@media(max-width:900px){.legend{grid-template-columns:1fr}.legend-col,.legend-col:first-child,.legend-col:last-child{padding:0;border-left:0!important}.header{gap:6px;flex-wrap:wrap;text-align:center;font-size:clamp(22px,5vw,42px)}.figure{padding:74px 44px 90px;min-width:980px}}
-@media(max-width:520px){.figure{padding:70px 34px 82px;min-width:920px}.section-title{font-size:17px}.defs-title{font-size:17px}.legend-group-title{font-size:15px}}
-@media print{@page{size:A3 landscape;margin:0}html,body{background:#fff!important;margin:0!important;padding:0!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}.toolbar,.hint{display:none!important}.sheet{width:100%!important;max-width:none!important;margin:0!important;padding:9mm 10mm!important;box-shadow:none!important;background:#fff!important}.header{font-size:40px!important;padding-bottom:10px!important;margin-bottom:12px!important}.figure-scroll{overflow:visible!important}.figure{padding:58px 38px 76px!important;min-width:0!important;break-inside:avoid!important}.section-title{font-size:17px!important;margin-bottom:8px!important}.definitions{margin-top:0!important;padding-top:14px!important}.defs-title{font-size:16px!important;margin-bottom:10px!important}.legend-group+.legend-group{margin-top:14px!important}.legend-group-title{font-size:14px!important;margin-bottom:8px!important;padding-bottom:6px!important}.legend{grid-template-columns:repeat(3,minmax(0,1fr))!important}.legend-col{padding:0 10px!important}.legend-col:first-child{padding-left:0!important}.legend-col:last-child{padding-right:0!important}.legend-col+.legend-col{border-left:1px solid #777!important}.entry{min-height:72px!important;padding:8px 0!important}.entry h3{font-size:15px!important}.entry p{font-size:12px!important;line-height:1.3!important}.footer{margin-top:14px!important;padding:10px 0 18px!important}.footer img{width:34px;height:34px}.hotspot{display:none!important}}
+:root{--red:#fb383f;--ink:#161616;--paper:#fff;--edge:#8f8f8f}*{box-sizing:border-box}html,body{margin:0;background:#e7e7e7;color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{color:inherit}.sheet{max-width:1580px;margin:0 auto 28px;background:var(--paper);padding:clamp(18px,3vw,42px);box-shadow:0 4px 20px #0001}.header{text-align:center;text-transform:uppercase;font-weight:900;letter-spacing:-.035em;font-size:clamp(25px,4.2vw,54px);border-bottom:2px solid #111;padding-bottom:16px;margin-bottom:24px}.header span{color:var(--red)}.intro{font-size:15px;line-height:1.5;max-width:86ch;margin:0 auto 25px;text-align:center}.caption{font-size:12px;color:#555;margin:8px 0 0}.eyebrow{margin:0 0 12px;font-size:18px;letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid #151515;padding-bottom:9px}.hero{margin-bottom:28px}.photo{width:100%;height:auto;display:block;max-height:580px;object-fit:contain;background:#d4d0c8;border:1px solid #333}.image-missing{border:2px dashed #777;background:#f4f4f4;padding:36px 24px;text-align:center;line-height:1.6}.image-missing strong{display:block;font-size:18px}.image-missing code{font-size:14px}.upload{display:inline-block;margin-top:12px;border:1px solid #222;background:#fff;padding:10px 16px;cursor:pointer;font-weight:700}.upload input{display:none}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 24px}.entry{display:grid;grid-template-columns:39px minmax(0,1fr);gap:11px;border-top:1px solid #aaa;padding:14px 0;min-width:0}.num{border-radius:50%;background:var(--red);color:#fff;width:34px;height:34px;display:flex;align-items:center;justify-content:center;font-weight:800}.entry h3{font-size:15px;margin:0 0 4px}.entry p{font-size:13px;line-height:1.42;margin:0}.strip{border-top:2px solid #222;margin-top:24px;padding-top:20px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{border:1px solid #444;padding:14px;background:#f7f7f7}.card h3{font-size:14px;letter-spacing:.05em;margin:0 0 10px}.card p{font-size:13px;line-height:1.5;margin:0}.steps{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:16px auto 6px;font-weight:800;font-size:12px}.steps b{background:#e9e9e9;padding:10px 13px;border:1px solid #aaa}.steps em{color:var(--red);font-size:18px;font-style:normal}.foot{border-top:2px solid #222;margin-top:30px;padding:15px 0 10px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}.foot img{display:block;object-fit:contain}.foot .huff-logo{width:42px;height:42px}.foot .schwwaaa{width:150px;height:auto}.foot a:first-child{justify-self:start}.foot a:last-child{grid-column:2;justify-self:center}.quick{overflow-x:auto}.quick table{width:100%;border-collapse:collapse;font-size:13px}.quick th,.quick td{text-align:left;padding:9px;border-bottom:1px solid #aaa}.quick th{background:#ededed}.warning{border-left:4px solid var(--red);padding:8px 14px;background:#f7f7f7;font-size:13px;line-height:1.5;margin-top:16px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cards{grid-template-columns:1fr 1fr}.sheet{box-shadow:none}.foot .schwwaaa{width:120px}}@media(max-width:600px){.grid,.cards{grid-template-columns:1fr}.entry p{font-size:14px}.entry h3{font-size:16px}.intro{text-align:left}.foot .schwwaaa{width:110px}}@media print{html,body{background:white}.sheet{box-shadow:none;margin:0;padding:10mm}.upload,.image-missing .upload{display:none!important}.entry{break-inside:avoid}.card{break-inside:avoid}}
 
-/* Published references: SVG callouts are visual only. */
-.arrows{pointer-events:none!important;touch-action:auto!important}.node{cursor:default!important}
-
-/* Unified footer: HUFF at left; schwwaaa centered in the full footer width. */
-.footer{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;justify-content:stretch;gap:10px}
-.footer > a:first-child{grid-column:1;justify-self:start}
-.footer > .schwwaaa-link{grid-column:2;justify-self:center}
-.footer .schwwaaa-link img {
-    display: block;
-    width: 150px;
-    height: auto;
-    margin: 0 auto;
-    border: 0;
-    object-fit: contain;
-}
-
-/* RESPONSIVE FIGURES: scale the complete screenshot + SVG together to fit the viewport.
-   The fixed 1120px drawing coordinate system is preserved so callouts remain aligned. */
-.figure-scroll{width:100%;max-width:100%;overflow-x:hidden;overflow-y:visible}
-.figure{width:1120px;min-width:0!important;max-width:none;zoom:1}
-@media(max-width:900px){.figure{padding:82px 56px 98px;min-width:0!important}}
-@media(max-width:520px){.figure{padding:82px 56px 98px;min-width:0!important}}
-@media print{.figure{zoom:1!important;width:100%!important;min-width:0!important}.figure-scroll{overflow:visible!important}}
-
-/* Mobile reference layout: preserve original screenshot/annotation proportions,
-   with an optional full-size inspection view rather than page-wide overflow. */
-html,body{max-width:100%;overflow-x:clip}
-.sheet{width:100%;min-width:0}
-.figure-block,.definitions,.legend,.legend-col,.entry,.entry>div{min-width:0}
-.entry h3,.entry p{overflow-wrap:anywhere}
-.figure-scroll{width:100%;max-width:100%;overflow:hidden;overscroll-behavior-inline:contain}
-.figure-scroll.is-expanded{overflow-x:auto;overflow-y:hidden;scrollbar-width:auto}
-.figure-scroll.is-expanded .figure{zoom:1!important}
-.figure-tools{display:none;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 12px;flex-wrap:wrap}
-.figure-tools .inspect-btn{appearance:none;border:2px solid #222;background:#fff;color:#111;font:700 14px/1.2 Arial,sans-serif;min-height:44px;padding:11px 14px;cursor:pointer}
-.figure-tools .inspect-btn:focus-visible{outline:3px solid var(--red);outline-offset:2px}
-.figure-tools .inspect-tip{font:13px/1.35 Arial,sans-serif;color:#555}
-@media(max-width:900px){
- .sheet{padding:20px clamp(12px,3.5vw,26px);margin-bottom:0;box-shadow:none}
- .header{font-size:clamp(22px,5vw,36px);line-height:1.12;gap:4px;padding-bottom:14px;margin-bottom:16px}
- .figure-tools{display:flex}
- .figure-block+.figure-block{margin-top:32px;padding-top:22px}
- .definitions{padding-top:16px;margin-top:14px}
- .legend{display:block!important}
- .legend-col,.legend-col:first-child,.legend-col:last-child{padding:0!important;border-left:0!important}
- .entry{grid-template-columns:36px minmax(0,1fr);gap:12px;min-height:0;padding:13px 0}
- .entry:first-child{border-top:0}
- .legend-col+.legend-col .entry:first-child{border-top:1px solid #aaa}
- .entry h3{font-size:16px;line-height:1.3}
- .entry p{font-size:14px;line-height:1.5}
- .entry-no{width:34px;height:34px;font-size:15px}
- .footer{grid-template-columns:1fr auto 1fr;gap:6px;min-width:0;align-items:center;padding-bottom:22px}
- .footer >a:first-child img{width:clamp(36px,10vw,42px);height:auto}
- .footer .schwwaaa-link img{width:min(150px,38vw)}
-}
-@media(max-width:520px){
- .sheet{padding:18px 12px 24px}
- .header{font-size:clamp(21px,6vw,29px)}
- .mode-label{font-size:14px}
- .definitions{margin-top:10px}
- .figure-tools .inspect-tip{flex-basis:100%}
- .footer{margin-top:22px}
-}
-@media print{.figure-tools{display:none!important}.figure-scroll{overflow:visible!important}}
-</style></head><body>
-
-
-<main class="sheet" id="sheet"><header class="header"><span class="block" id="blockTitle">SOURCE</span><span>— HUFF Web Reference</span></header><div id="sections"></div><footer class="footer"><a href="../index.html" aria-label="Back to HUFF Web Reference Library" title="HUFF Web Reference Library"><img src="assets/huff-icon.jpg" alt="HUFF logo"></a><a class="schwwaaa-link" href="https://linktr.ee/schwwaaa" aria-label="Visit schwwaaa" target="_blank" rel="noopener noreferrer"><img src="../schwwaaa-logo.png" alt="schwwaaa"></a></footer></main>
-<script>
-// Public read-only SDS-001 renderer. No editing, importing, dragging, or exporting handlers.
-const DEFAULT={"block":"SOURCE","sections":[{"key":"source","image":"assets/source-original.png","alt":"Exact SOURCE controls screenshot","controls":[{"id":1,"name":"Camera Controls","description":"Camera controls and camera selection dropdown.","x":0.151,"y":0.26,"side":"top","t":0.15},{"id":2,"name":"File Chooser","description":"Choose a video file and view its filename.","x":0.35,"y":0.259,"side":"top","t":0.33},{"id":3,"name":"Transport Controls","description":"Play, pause and refresh the selected file/source.","x":0.538,"y":0.259,"side":"top","t":0.52},{"id":4,"name":"Loop Toggle","description":"Enable or disable file playback looping.","x":0.769,"y":0.256,"side":"top","t":0.76},{"id":5,"name":"Rate Selector","description":"Adjust the source playback speed.","x":0.085,"y":0.474,"side":"left","t":0.46},{"id":6,"name":"Timeline Scrub","description":"Seek to a position in the loaded video file.","x":0.475,"y":0.474,"side":"bottom","t":0.51},{"id":7,"name":"Timecode Display","description":"Current playback position and total duration.","x":0.939,"y":0.468,"side":"right","t":0.44},{"id":8,"name":"Base Video Enable","description":"Enable or disable the base video layer.","x":0.093,"y":0.66,"side":"left","t":0.67},{"id":9,"name":"Base Mix Slider","description":"Adjust the level of the base video mix.","x":0.451,"y":0.66,"side":"bottom","t":0.64},{"id":10,"name":"Volume Slider","description":"Adjust source audio volume.","x":0.806,"y":0.66,"side":"bottom","t":0.79},{"id":11,"name":"Base BG Selector","description":"Select the base background color.","x":0.933,"y":0.663,"side":"right","t":0.68},{"id":12,"name":"Source + Canvas Readouts","description":"View source format and canvas status.","x":0.285,"y":0.853,"side":"bottom","t":0.28},{"id":13,"name":"FPS Readout","description":"View the displayed frame rate.","x":0.377,"y":0.85,"side":"bottom","t":0.4}]}]};
-const data=DEFAULT;
-const $=id=>document.getElementById(id);
-const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function renderSections(){
- $('sections').innerHTML=data.sections.map((sec,i)=>`<section class="figure-block">${data.block==='PANELING'?`<div class="mode-label">${i===0?'BANDS MODE':'FIELD MODE'}</div>`:''}<div class="figure-tools"><button type="button" class="inspect-btn" data-figure="${i}" aria-pressed="false" aria-controls="figure-scroll-${i}">View full-size diagram</button><span class="inspect-tip">Use full-size view to inspect numbered controls; swipe horizontally inside the diagram.</span></div><div class="figure-scroll" id="figure-scroll-${i}"><div class="figure" id="fig-${i}"><img class="capture" id="img-${i}" alt="${esc(sec.alt)}" src="${esc(sec.image)}"><svg class="arrows" id="ov-${i}" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arrow-${i}" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L7,3.5 L0,7 Z" fill="var(--red)"/></marker></defs><g id="cg-${i}"></g></svg></div></div><div class="definitions"><div id="legend-${i}"></div></div></section>`).join('');
- data.sections.forEach((_,i)=>{document.getElementById(`img-${i}`).addEventListener('load',()=>drawSection(i));});
-}
-function dims(i){let fig=document.getElementById(`fig-${i}`),im=document.getElementById(`img-${i}`);return {W:fig.clientWidth,H:fig.clientHeight,ix:im.offsetLeft,iy:im.offsetTop,iw:im.clientWidth,ih:im.clientHeight}}
-function endpoint(c,d){return {x:d.ix+c.x*d.iw,y:d.iy+c.y*d.ih}}
-function startpoint(c,d){let t=c.t,b=endpoint(c,d);if(c.side==='top')return {x:t*d.W,y:28};if(c.side==='bottom')return {x:t*d.W,y:d.H-30};if(c.side==='left')return {x:18,y:d.iy+clamp(t,0,1)*d.ih};return {x:d.W-18,y:d.iy+clamp(t,0,1)*d.ih}}
-function layoutMarkers(controls,d){
- const pts=controls.map(c=>({c,a:startpoint(c,d)}));
- for(const side of ['top','bottom','left','right']){
-  const group=pts.filter(p=>p.c.side===side).sort((a,b)=>side==='left'||side==='right'?a.a.y-b.a.y:a.a.x-b.a.x);
-  if(!group.length)continue;
-  let prev=-1e9;
-  for(const p of group){let axis=side==='left'||side==='right'?'y':'x';let lim=axis==='x'?d.W:d.H;let v=clamp(p.a[axis],19,lim-19);v=Math.max(v,prev+39);p.a[axis]=v;prev=v;}
-  const axis=side==='left'||side==='right'?'y':'x',lim=axis==='x'?d.W:d.H;
-  if(prev>lim-19){let delta=prev-(lim-19);group.forEach(p=>p.a[axis]-=delta);}
- }
- return new Map(pts.map(p=>[p.c.id,p.a]));
-}
-function drawSection(i){let sec=data.sections[i],d=dims(i),ov=document.getElementById(`ov-${i}`),g=document.getElementById(`cg-${i}`);if(!ov||!g)return;
- ov.setAttribute('viewBox',`0 0 ${d.W} ${d.H}`);let markers=layoutMarkers(sec.controls,d);
- g.innerHTML=sec.controls.map(c=>{let a=markers.get(c.id),b=endpoint(c,d);let mx=c.side==='top'||c.side==='bottom'?a.x:(a.x+b.x)/2,my=c.side==='left'||c.side==='right'?a.y:(a.y+b.y)/2;
- let p=`${a.x},${a.y} ${mx},${my} ${b.x},${b.y}`;
- return `<g data-id="${c.id}" data-sec="${i}"><polyline points="${p}" class="leader" marker-end="url(#arrow-${i})"/><g class="node" transform="translate(${a.x},${a.y})"><circle r="17"></circle><text x="0" y="0">${c.id}</text></g></g>`}).join('');
-}
-function renderLegend(){data.sections.forEach((sec,sidx)=>{const wrap=document.getElementById(`legend-${sidx}`);if(!wrap)return;const size=Math.ceil(sec.controls.length/3),cols=[sec.controls.slice(0,size),sec.controls.slice(size,size*2),sec.controls.slice(size*2)];wrap.innerHTML=`<div class="legend">${cols.map(col=>`<div class="legend-col">${col.map(c=>`<article class="entry"><div class="entry-no">${c.id}</div><div><h3>${esc(c.name)}</h3><p>${esc(c.description)}</p></div></article>`).join('')}</div>`).join('')}</div>`;});}
-$('blockTitle').textContent=data.block;
-renderSections();renderLegend();
-// Fit each diagram to its available column width. CSS zoom scales its image and SVG
-// as one unit, unlike resizing the image alone (which disconnects arrow endpoints).
-function fitReferenceFigures(){
-  data.sections.forEach((_,i)=>{
-    const fig=document.getElementById(`fig-${i}`);
-    if(!fig)return;
-    const viewport=fig.parentElement;
-    const available=viewport.clientWidth;
-    fig.style.zoom=String(viewport.classList.contains("is-expanded") ? 1 : Math.min(1,available/1120));
-    drawSection(i);
-  });
-}
-// Mobile inspection: read-only. The original annotation coordinates stay unchanged.
-document.getElementById('sections').addEventListener('click', event => {
- const btn=event.target.closest('button[data-figure]');
- if(!btn)return;
- const i=Number(btn.dataset.figure);
- const viewport=document.getElementById(`figure-scroll-${i}`);
- const expanded=viewport.classList.toggle('is-expanded');
- btn.textContent=expanded?'Fit diagram to screen':'View full-size diagram';
- btn.setAttribute('aria-pressed',String(expanded));
- if(!expanded) viewport.scrollLeft=0;
- fitReferenceFigures();
-});
-requestAnimationFrame(fitReferenceFigures);
-window.addEventListener('resize',fitReferenceFigures);
-if ('ResizeObserver' in window) {
-  const observer=new ResizeObserver(fitReferenceFigures);
-  document.querySelectorAll('.figure-scroll').forEach(el=>observer.observe(el));
-}
-</script></body></html>
+/* Reviewed SOURCE diagram: every marker stays beside its own control. */
+.diagram-tip{font-size:13px;line-height:1.5;margin:0 0 12px;color:#444}
+.diagram-scroll{overflow-x:auto;overscroll-behavior-inline:contain;border:1px solid #555;background:#f0f0f0;padding:5px;scrollbar-width:thin}
+.source-figure{position:relative;width:100%;min-width:980px;aspect-ratio:1522 / 542;background:#d4d0c8}
+.source-photo{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:fill}
+.source-annotations{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}
+.leader-line{fill:none;stroke:#d71828;stroke-width:2.6;stroke-linecap:round;pointer-events:none;filter:drop-shadow(0px 1px 1px #fff)}
+.callout-dot{fill:#e92737;stroke:#fff;stroke-width:2.5;filter:drop-shadow(0px 1px 1px #333)}
+.callout-number{fill:#fff;font-family:Arial,Helvetica,sans-serif;font-size:14px;font-weight:800;text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+.callout-link{cursor:pointer}.callout-link:hover .callout-dot,.callout-link:focus .callout-dot{fill:#111}
+.entry:target{outline:3px solid #e92737;outline-offset:2px;background:#fff5f5;scroll-margin-top:18px}
+@media(max-width:700px){.source-figure{min-width:980px}.diagram-scroll{margin-right:-6px}}
+@media print{.source-figure{min-width:0!important}.diagram-scroll{overflow:visible!important;border:0;padding:0}.source-figure{break-inside:avoid}.callout-dot{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+</style></head><body><main class="sheet"><header class="header"><span>SOURCE</span> — HUFF Reference</header>
+<p class="intro">The Source section controls incoming video, live cameras, and still images. Color conditioning happens <strong>before</strong> the downstream HUFF processing stages. The screenshot, controls, and notes below describe the current October 2026 application baseline.</p>
+<section class="hero" aria-labelledby="figure-heading"><h2 class="eyebrow" id="figure-heading">01 / SOURCE interface — annotated control map</h2><p class="diagram-tip">Select a numbered marker to jump to its explanation. On narrow displays, scroll the diagram horizontally to see all controls.</p><div class="diagram-scroll" tabindex="0" aria-label="Annotated Source controls; scroll horizontally if needed"><div class="source-figure"><img class="source-photo" alt="HUFF Source interface with camera, transport, playback, and six source-color controls" src="assets/source-original.png" width="1522" height="542"><svg class="source-annotations" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1522 542" role="img" aria-label="18 numbered local control callouts"><defs><marker id="short-arrow" markerWidth="5" markerHeight="5" refX="4" refY="2.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L5 2.5 L0 5Z" fill="#d71828"/></marker></defs><a href="#ctrl-1" aria-label="01: CAMERA" class="callout-link"><title>01 — CAMERA</title><line class="leader-line" x1="643" y1="79" x2="596" y2="80" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="643" cy="79" r="17"/><text class="callout-number" x="643" y="80">01</text></a><a href="#ctrl-2" aria-label="02: VIDEO / IMAGE" class="callout-link"><title>02 — VIDEO / IMAGE</title><line class="leader-line" x1="238" y1="115" x2="280" y2="142" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="238" cy="115" r="17"/><text class="callout-number" x="238" y="116">02</text></a><a href="#ctrl-3" aria-label="03: PLAY / PAUSE / REFRESH" class="callout-link"><title>03 — PLAY / PAUSE / REFRESH</title><line class="leader-line" x1="790" y1="112" x2="806" y2="138" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="790" cy="112" r="17"/><text class="callout-number" x="790" y="113">03</text></a><a href="#ctrl-4" aria-label="04: LOOP" class="callout-link"><title>04 — LOOP</title><line class="leader-line" x1="1173" y1="110" x2="1238" y2="140" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="1173" cy="110" r="17"/><text class="callout-number" x="1173" y="111">04</text></a><a href="#ctrl-5" aria-label="05: FPS" class="callout-link"><title>05 — FPS</title><line class="leader-line" x1="1454" y1="112" x2="1383" y2="139" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="1454" cy="112" r="17"/><text class="callout-number" x="1454" y="113">05</text></a><a href="#ctrl-6" aria-label="06: RATE" class="callout-link"><title>06 — RATE</title><line class="leader-line" x1="300" y1="182" x2="245" y2="202" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="300" cy="182" r="17"/><text class="callout-number" x="300" y="183">06</text></a><a href="#ctrl-7" aria-label="07: SEEK / TIMECODE" class="callout-link"><title>07 — SEEK / TIMECODE</title><line class="leader-line" x1="1278" y1="182" x2="1328" y2="202" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="1278" cy="182" r="17"/><text class="callout-number" x="1278" y="183">07</text></a><a href="#ctrl-8" aria-label="08: BASE VIDEO" class="callout-link"><title>08 — BASE VIDEO</title><line class="leader-line" x1="255" y1="237" x2="230" y2="263" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="255" cy="237" r="17"/><text class="callout-number" x="255" y="238">08</text></a><a href="#ctrl-9" aria-label="09: BASE MIX" class="callout-link"><title>09 — BASE MIX</title><line class="leader-line" x1="1040" y1="239" x2="982" y2="264" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="1040" cy="239" r="17"/><text class="callout-number" x="1040" y="240">09</text></a><a href="#ctrl-10" aria-label="10: VOL" class="callout-link"><title>10 — VOL</title><line class="leader-line" x1="647" y1="298" x2="608" y2="322" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="647" cy="298" r="17"/><text class="callout-number" x="647" y="299">10</text></a><a href="#ctrl-11" aria-label="11: BASE BG" class="callout-link"><title>11 — BASE BG</title><line class="leader-line" x1="1015" y1="299" x2="971" y2="322" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="1015" cy="299" r="17"/><text class="callout-number" x="1015" y="300">11</text></a><a href="#ctrl-12" aria-label="12: BRIGHTNESS" class="callout-link"><title>12 — BRIGHTNESS</title><line class="leader-line" x1="36" y1="383" x2="90" y2="383" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="36" cy="383" r="17"/><text class="callout-number" x="36" y="384">12</text></a><a href="#ctrl-13" aria-label="13: CONTRAST" class="callout-link"><title>13 — CONTRAST</title><line class="leader-line" x1="585" y1="384" x2="648" y2="384" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="585" cy="384" r="17"/><text class="callout-number" x="585" y="385">13</text></a><a href="#ctrl-14" aria-label="14: SATURATION" class="callout-link"><title>14 — SATURATION</title><line class="leader-line" x1="36" y1="441" x2="98" y2="441" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="36" cy="441" r="17"/><text class="callout-number" x="36" y="442">14</text></a><a href="#ctrl-15" aria-label="15: GAMMA" class="callout-link"><title>15 — GAMMA</title><line class="leader-line" x1="588" y1="443" x2="651" y2="443" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="588" cy="443" r="17"/><text class="callout-number" x="588" y="444">15</text></a><a href="#ctrl-16" aria-label="16: HUE" class="callout-link"><title>16 — HUE</title><line class="leader-line" x1="1060" y1="442" x2="1126" y2="442" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="1060" cy="442" r="17"/><text class="callout-number" x="1060" y="443">16</text></a><a href="#ctrl-17" aria-label="17: SHARPNESS" class="callout-link"><title>17 — SHARPNESS</title><line class="leader-line" x1="36" y1="502" x2="102" y2="502" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="36" cy="502" r="17"/><text class="callout-number" x="36" y="503">17</text></a><a href="#ctrl-18" aria-label="18: RESET COLOR" class="callout-link"><title>18 — RESET COLOR</title><line class="leader-line" x1="583" y1="500" x2="645" y2="500" marker-end="url(#short-arrow)"/><circle class="callout-dot" cx="583" cy="500" r="17"/><text class="callout-number" x="583" y="501">18</text></a></svg></div></div><p class="caption">18 numbered callouts identify the interface controls. Image included locally in this package: <code>assets/source-original.png</code>.</p></section>
+<section aria-labelledby="control-heading"><h2 class="eyebrow" id="control-heading">02 / Controls and functions</h2><div class="grid"><div class="entry" id="ctrl-1"><span class="num">01</span><div><h3>CAMERA</h3><p>Start, stop, refresh, or choose the live camera. Camera availability depends on browser permission.</p></div></div>
+<div class="entry" id="ctrl-2"><span class="num">02</span><div><h3>VIDEO / IMAGE</h3><p>Open video files or still images (JPG, PNG, WebP). The chosen media becomes the input for HUFF processing.</p></div></div>
+<div class="entry" id="ctrl-3"><span class="num">03</span><div><h3>PLAY / PAUSE / REFRESH</h3><p>Start, stop, or reload the selected video. Some transport controls are unavailable for still images.</p></div></div>
+<div class="entry" id="ctrl-4"><span class="num">04</span><div><h3>LOOP</h3><p>Repeat playback of the selected video when it reaches the end.</p></div></div>
+<div class="entry" id="ctrl-5"><span class="num">05</span><div><h3>FPS</h3><p>Displays the approximate render-loop frame rate next to LOOP; it is not the media file frame rate.</p></div></div>
+<div class="entry" id="ctrl-6"><span class="num">06</span><div><h3>RATE</h3><p>Change video playback speed from 0.25× to 4×. Does not change still-image playback.</p></div></div>
+<div class="entry" id="ctrl-7"><span class="num">07</span><div><h3>SEEK / TIMECODE</h3><p>Scrub a loaded video and read the current and total playback times.</p></div></div>
+<div class="entry" id="ctrl-8"><span class="num">08</span><div><h3>BASE VIDEO</h3><p>Enable or disable the clean source contribution to the working composite.</p></div></div>
+<div class="entry" id="ctrl-9"><span class="num">09</span><div><h3>BASE MIX</h3><p>Mix the clean source from 0 to 1 before subsequent processing.</p></div></div>
+<div class="entry" id="ctrl-10"><span class="num">10</span><div><h3>VOL</h3><p>Adjust the audio level of the loaded video. Still images have no audio.</p></div></div>
+<div class="entry" id="ctrl-11"><span class="num">11</span><div><h3>BASE BG</h3><p>Select the base background color: black, green, blue, or white.</p></div></div>
+<div class="entry" id="ctrl-12"><span class="num">12</span><div><h3>BRIGHTNESS</h3><p>Input brightness, −100 to +100; 0 is neutral.</p></div></div>
+<div class="entry" id="ctrl-13"><span class="num">13</span><div><h3>CONTRAST</h3><p>Input contrast, 0–200%; 100% is neutral.</p></div></div>
+<div class="entry" id="ctrl-14"><span class="num">14</span><div><h3>SATURATION</h3><p>Input color saturation, 0–200%; 100% is neutral.</p></div></div>
+<div class="entry" id="ctrl-15"><span class="num">15</span><div><h3>GAMMA</h3><p>Midtone correction, 0.25–3.00; 1.00 is neutral. May require pixel processing.</p></div></div>
+<div class="entry" id="ctrl-16"><span class="num">16</span><div><h3>HUE</h3><p>Hue rotation, −180° to +180°; 0° is neutral.</p></div></div>
+<div class="entry" id="ctrl-17"><span class="num">17</span><div><h3>SHARPNESS</h3><p>Source detail control, 0–200%; below 100 softens and above 100 sharpens. 100% is neutral.</p></div></div>
+<div class="entry" id="ctrl-18"><span class="num">18</span><div><h3>RESET COLOR</h3><p>Restore all six color controls to their neutral values without resetting other effects.</p></div></div></div></section>
+<section class="strip"><h2 class="eyebrow">03 / Processing order</h2><div class="steps"><b>VIDEO / CAMERA / IMAGE</b><em>→</em><b>COLOR CONDITIONING</b><em>→</em><b>HUFF EFFECTS</b><em>→</em><b>OUTPUT</b></div><p class="caption">Color conditioning changes what later effects receive. It does not replace the downstream Feedback, Vista, Sift, Luma, or Solarize stages.</p></section>
+<section class="strip"><h2 class="eyebrow">04 / Source color neutral values</h2><div class="quick"><table><thead><tr><th>Control</th><th>Range</th><th>Neutral</th><th>Use</th></tr></thead><tbody><tr><td>Brightness</td><td>−100 to +100</td><td>0</td><td>Lighten/darken</td></tr><tr><td>Contrast</td><td>0–200%</td><td>100%</td><td>Tonal difference</td></tr><tr><td>Saturation</td><td>0–200%</td><td>100%</td><td>Color intensity</td></tr><tr><td>Gamma</td><td>0.25–3</td><td>1.00</td><td>Midtones</td></tr><tr><td>Hue</td><td>−180° to +180°</td><td>0°</td><td>Color rotation</td></tr><tr><td>Sharpness</td><td>0–200%</td><td>100%</td><td>Softening / edge definition</td></tr></tbody></table></div><div class="warning"><strong>Performance:</strong> Gamma and Sharpness can require per-pixel operations. Large native-resolution photographs may respond more slowly during rapid slider changes. The current application already reprocesses static image color only when the image or a color control changes; further caching of unchanged still frames would not meaningfully improve steady-state FPS.</div></section>
+<section class="strip"><h2 class="eyebrow">05 / Practical workflows</h2><div class="cards"><div class="card"><h3>VIDEO PLAYBACK</h3><p>Load a video, use Play and Rate for transport, and adjust its source color before applying effects. LOOP repeats the clip.</p></div><div class="card"><h3>STILL IMAGE PROCESSING</h3><p>Load JPG, PNG, or WebP. HUFF processes the image at native dimensions while downstream temporal effects can continue evolving. No audio or timeline is required.</p></div><div class="card"><h3>RESET AND PRESETS</h3><p>RESET COLOR returns the six source adjustments to neutral. Presets store the six values. Other HUFF effect settings are not reset by this button.</p></div></div></section>
+<footer class="foot"><a href="../index.html" aria-label="Return to reference library"><img class="huff-logo" src="assets/huff-icon.jpg" alt="HUFF"></a><a href="https://linktr.ee/schwwaaa" target="_blank" rel="noopener noreferrer"><img class="schwwaaa" src="../schwwaaa-logo.png" alt="schwwaaa"></a></footer></main>
+</body></html>

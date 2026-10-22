@@ -4,43 +4,115 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description"
-        content="HUFF Web — a real-time video instrument for camera and video input, live image processing, feedback, and glitch effects.">
-    <title>HUFF Web</title>
+    <!-- Start the logo + font downloads before the CSS is parsed (no title/logo jump). -->
+    <link rel="preload" href="fonts/amboy.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="huff-icon.jpg" as="image" fetchpriority="high">
+    <meta name="description" content="HUFF — a real-time video instrument for camera and video input, live image processing, feedback, and glitch effects.">
+    <title>HUFF</title>
     <style>
+        /* The font file is loaded from fonts/amboy.otf relative to this HTML page. */
+        
+        @font-face {
+            font-family: 'HUFF Amboy';
+            /* Font: WOFF2 first (9 KB), OTF as fallback. 'block' = never flash the fallback font in the title. */
+            src: url('./fonts/amboy.woff2') format('woff2'), url('./fonts/amboy.otf') format('opentype');
+            font-style: normal;
+            font-weight: 400;
+            font-display: block;
+        }
+        
+        /* ================================================================
+           HUFF SITE TYPOGRAPHY + LOGO SIZE — EDIT HERE
+           Change these values only; no hunting through duplicate selectors.
+           Logo sizes are width values; height retains original proportions.
+           HUFF TITLE is the large text above the logo (not the empty H1).
+           80px is the size attempted in the supplied file; it was overridden.
+           ================================================================ */
         :root {
+            --huff-title-size: 175px;        /* Desktop HUFF title */
+            --huff-title-size-mobile: 125px; /* Mobile HUFF title: <=540px */
+            --huff-logo-width: 415px;        /* Desktop logo */
+            --huff-logo-width-mobile: 300px; /* Mobile: 540px viewport or less */
+            --huff-title-tracking: 0em;
+            --huff-page-heading-size: 30px;
+            --huff-page-heading-tracking: 0em;
+        }
+
+        /* CANONICAL LOGO RULES — control size using the two variables above. */
+        .hero .hero-logo,
+        .brand .brand-home img {
+            width: min(100%, var(--huff-logo-width));
+            height: auto;
+        }
+        @media (max-width: 540px) {
+            .hero .hero-logo,
+            .brand .brand-home img {
+                width: min(100%, var(--huff-logo-width-mobile));
+            }
+        }
+
+        /* CANONICAL TITLE RULES — sizes come ONLY from the variables above. */
+        .hero .masthead-product,
+        .brand .masthead-product {
+            font-family: 'HUFF Amboy', 'Courier New', monospace;
+            font-size: var(--huff-title-size);
+            font-weight: 400;
+            font-style: normal;
+            line-height: 1.1;
+            letter-spacing: var(--huff-title-tracking);
+            font-synthesis: none;
+        }
+        /* MOBILE HUFF TITLE — independent of the desktop title size. */
+        @media (max-width: 540px) {
+            .hero .masthead-product,
+            .brand .masthead-product {
+                font-size: var(--huff-title-size-mobile);
+            }
+        }
+
+        .hero .page-title,
+        .brand .page-title {
+            font-family: 'HUFF Amboy', 'Courier New', monospace;
+            font-size: var(--huff-page-heading-size);
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: var(--huff-page-heading-tracking);
+            font-synthesis: none;
+        }
+
+         :root {
             --red: #FB4146;
             --ink: #171717;
             --paper: #fff;
             --max: 1320px
         }
-
+        
         * {
             box-sizing: border-box
         }
-
+        
         body {
             margin: 0;
             background: var(--red);
             color: var(--ink);
-            font: 16px/1.5 Arial, Helvetica, sans-serif
+            font: 16px/1.5 'HUFF Amboy', Arial, Helvetica, sans-serif
         }
-
+        
         a {
             color: inherit
         }
-
+        
         a:focus-visible,
         button:focus-visible {
             outline: 3px solid var(--ink);
             outline-offset: 3px
         }
-
+        
         .container {
             width: min(var(--max), calc(100% - 48px));
             margin-inline: auto
         }
-
+        
         .hero {
             display: flex;
             flex-direction: column;
@@ -49,20 +121,19 @@
             padding: 40px 0 38px;
             border-bottom: 3px solid var(--ink)
         }
-
+        
         .hero-logo {
             display: block;
-            width: clamp(180px, 30vw, 340px);
             height: auto
         }
-
+        
         .hero h1 {
-            font: 900 clamp(20px, 3vw, 30px)/1.1 'Courier New', monospace;
+            font: 900 clamp(20px, 3vw, 30px)/1.1 'HUFF Amboy', 'Courier New', monospace;
             text-transform: uppercase;
             letter-spacing: .04em;
             margin: 10px 0 24px
         }
-
+        
         .links {
             display: flex;
             flex-wrap: wrap;
@@ -72,11 +143,11 @@
             width: 100%;
             max-width: 1040px
         }
-
+        
         .links>.link-card {
             flex: 0 1 247px
         }
-
+        
         .link-card {
             position: relative;
             display: flex;
@@ -87,22 +158,22 @@
             border: 2px solid var(--ink);
             padding: 18px 43px 18px 18px;
             text-decoration: none;
-            font: 900 clamp(15px, 1.6vw, 19px)/1.25 'Courier New', monospace;
+            font: 900 clamp(15px, 1.6vw, 19px)/1.25 'HUFF Amboy', 'Courier New', monospace;
             text-transform: uppercase;
             transition: background-color .15s
         }
-
+        
         .link-card:hover {
             background: #f1f1f1
         }
-
+        
         .link-card .arrow {
             position: absolute;
             right: 13px;
             top: 10px;
-            font: 700 26px/1 Arial, sans-serif
+            font: 700 26px/1 'HUFF Amboy', Arial, sans-serif
         }
-
+        
         .link-card-empty {
             border: 2px dashed #17171777;
             background: transparent;
@@ -111,14 +182,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font: 700 13px 'Courier New', monospace;
+            font: 700 13px 'HUFF Amboy', 'Courier New', monospace;
             text-transform: uppercase
         }
-
+        
         main {
             padding: 36px 0 58px
         }
-
+        
         .section-head {
             display: flex;
             align-items: baseline;
@@ -128,38 +199,38 @@
             padding-bottom: 12px;
             margin-bottom: 18px
         }
-
+        
         .section-head h2 {
-            font: 900 clamp(24px, 3.4vw, 42px)/1.05 'Courier New', monospace;
+            font: 900 clamp(24px, 3.4vw, 42px)/1.05 'HUFF Amboy', 'Courier New', monospace;
             text-transform: uppercase;
             margin: 0
         }
-
+        
         .section-head span {
-            font: 700 12px 'Courier New', monospace;
+            font: 700 12px 'HUFF Amboy', 'Courier New', monospace;
             text-transform: uppercase
         }
-
+        
         .media {
             background: var(--paper);
             border: 2px solid var(--ink);
             padding: clamp(10px, 2vw, 20px)
         }
-
+        
         .media-display {
             background: #101010;
             aspect-ratio: 16/9;
             display: grid;
             place-items: center
         }
-
+        
         .media-display iframe {
             width: 100%;
             height: 100%;
             border: 0;
             display: block
         }
-
+        
         .media-control-row {
             display: grid;
             grid-template-columns: auto 1fr auto;
@@ -167,36 +238,36 @@
             gap: 12px;
             margin-top: 14px
         }
-
+        
         .media-nav {
             background: #fff;
             border: 2px solid var(--ink);
             padding: 11px 16px;
-            font: 800 14px 'Courier New', monospace;
+            font: 800 14px 'HUFF Amboy', 'Courier New', monospace;
             cursor: pointer;
             min-height: 44px
         }
-
+        
         .media-nav:hover {
             background: #eee
         }
-
+        
         .media-status {
             min-width: 0;
             text-align: center
         }
-
+        
         .media-caption {
-            font: 700 13px 'Courier New', monospace
+            font: 700 13px 'HUFF Amboy', 'Courier New', monospace
         }
-
+        
         .dots {
             display: flex;
             justify-content: center;
             gap: 9px;
             margin-top: 9px
         }
-
+        
         .dot {
             width: 14px;
             height: 14px;
@@ -205,11 +276,11 @@
             cursor: pointer;
             padding: 0
         }
-
+        
         .dot[aria-current="true"] {
             background: var(--red)
         }
-
+        
         .site-footer {
             border-top: 3px solid var(--ink);
             display: grid;
@@ -219,21 +290,22 @@
             padding: 24px 0 32px;
             min-height: 126px
         }
-
+        
         .site-footer .huff {
             justify-self: start
         }
-
+        
         .site-footer .huff img {
+            height: auto;
             width: 68px;
             display: block
         }
-
+        
         .site-footer .schwwaaa {
             grid-column: 2;
             justify-self: center
         }
-
+        
         .site-footer .schwwaaa img {
             display: block;
             width: 150px;
@@ -242,87 +314,74 @@
             border: 0;
             object-fit: contain
         }
-
+        
         @media(max-width:800px) {
             .links>.link-card {
                 flex-basis: calc(50% - 7px)
             }
         }
-
+        
         @media(max-width:540px) {
             .container {
                 width: calc(100% - 28px)
             }
-
             .hero {
                 padding-top: 26px
             }
-
             .hero-logo {
-                width: clamp(170px, 48vw, 230px)
             }
-
             .links {
                 gap: 9px
             }
-
             .links>.link-card {
                 flex-basis: calc(50% - 5px)
             }
-
             .link-card {
                 min-height: 75px;
                 padding: 13px 34px 13px 10px;
                 font-size: 13px
             }
-
             .link-card .arrow {
                 right: 8px;
                 top: 9px;
                 font-size: 21px
             }
-
             .link-card-empty {
                 min-height: 75px
             }
-
             .section-head span {
                 display: none
             }
-
             .media-control-row {
                 grid-template-columns: 1fr 1fr
             }
-
             .media-status {
                 grid-column: 1/-1;
                 grid-row: 1
             }
-
             .media-nav:first-child {
                 grid-column: 1;
                 grid-row: 2
             }
-
             .media-nav:last-child {
                 grid-column: 2;
                 grid-row: 2
             }
         }
-
+        
         @media(prefers-reduced-motion:reduce) {
             .link-card {
                 transition: none
             }
         }
-
         /* GUI tour: separate from the original video carousel. */
+        
         .gui-panel {
             background: var(--paper);
             border: 2px solid var(--ink);
             padding: clamp(12px, 2vw, 22px)
         }
-
+        
         .gui-stage {
             display: grid;
             grid-template-columns: minmax(0, 1.6fr) minmax(260px, 1fr);
@@ -330,7 +389,7 @@
             background: #fff;
             min-height: 410px
         }
-
+        
         .gui-image-wrap {
             min-width: 0;
             display: flex;
@@ -340,7 +399,7 @@
             background: #f1f1f1;
             border-right: 2px solid var(--ink)
         }
-
+        
         .gui-image-wrap img {
             display: block;
             width: 100%;
@@ -348,7 +407,7 @@
             max-height: 540px;
             object-fit: contain
         }
-
+        
         .gui-copy {
             min-width: 0;
             display: flex;
@@ -356,26 +415,26 @@
             justify-content: center;
             padding: clamp(20px, 3vw, 45px)
         }
-
+        
         .gui-copy .eyebrow {
-            font: 800 12px 'Courier New', monospace;
+            font: 800 12px 'HUFF Amboy', 'Courier New', monospace;
             letter-spacing: .1em;
             text-transform: uppercase;
             margin-bottom: 12px
         }
-
+        
         .gui-copy h3 {
-            font: 900 clamp(24px, 3.4vw, 44px)/1.08 'Courier New', monospace;
+            font: 900 clamp(24px, 3.4vw, 44px)/1.08 'HUFF Amboy', 'Courier New', monospace;
             text-transform: uppercase;
             margin: 0 0 18px
         }
-
+        
         .gui-copy p {
-            font: 16px/1.55 Arial, Helvetica, sans-serif;
+            font: 16px/1.55 'HUFF Amboy', Arial, Helvetica, sans-serif;
             margin: 0 0 25px;
             max-width: 38ch
         }
-
+        
         .gui-copy .gui-ref {
             display: inline-flex;
             align-self: flex-start;
@@ -383,14 +442,14 @@
             align-items: center;
             border-bottom: 2px solid #171717;
             text-decoration: none;
-            font: 800 13px 'Courier New', monospace;
+            font: 800 13px 'HUFF Amboy', 'Courier New', monospace;
             padding: 8px 0
         }
-
+        
         .gui-copy .gui-ref:hover {
             text-decoration: underline
         }
-
+        
         .gui-controls {
             display: grid;
             grid-template-columns: auto 1fr auto;
@@ -398,12 +457,12 @@
             gap: 12px;
             margin-top: 16px
         }
-
+        
         .gui-counter {
             text-align: center;
-            font: 800 13px 'Courier New', monospace
+            font: 800 13px 'HUFF Amboy', 'Courier New', monospace
         }
-
+        
         .gui-dots {
             display: flex;
             justify-content: center;
@@ -411,58 +470,51 @@
             gap: 8px;
             margin-top: 10px
         }
-
+        
         .gui-dots .dot {
             width: 13px;
             height: 13px
         }
-
+        
         @media(max-width:760px) {
             .gui-stage {
                 grid-template-columns: 1fr
             }
-
             .gui-image-wrap {
                 border-right: 0;
                 border-bottom: 2px solid var(--ink);
                 min-height: 180px
             }
-
             .gui-copy {
                 padding: 20px
             }
-
             .gui-copy h3 {
                 font-size: 27px
             }
-
             .gui-stage {
                 min-height: 0
             }
         }
-
+        
         @media(max-width:540px) {
             .gui-controls {
                 grid-template-columns: 1fr 1fr
             }
-
             .gui-counter {
                 grid-column: 1/-1;
                 grid-row: 1
             }
-
             .gui-controls .media-nav:first-child {
                 grid-column: 1;
                 grid-row: 2
             }
-
             .gui-controls .media-nav:last-child {
                 grid-column: 2;
                 grid-row: 2
             }
         }
-
         /* Expand GUI slides without changing either carousel's navigation. */
+        
         .gui-expand {
             border: 0;
             background: transparent;
@@ -474,10 +526,10 @@
             padding: 0;
             width: 100%;
             cursor: zoom-in;
-            font: 800 12px 'Courier New', monospace;
+            font: 800 12px 'HUFF Amboy', 'Courier New', monospace;
             color: var(--ink)
         }
-
+        
         .gui-expand img {
             display: block;
             width: 100%;
@@ -485,16 +537,16 @@
             max-height: 540px;
             object-fit: contain
         }
-
+        
         .gui-expand .expand-hint {
             align-self: flex-end;
             text-transform: uppercase
         }
-
+        
         .gui-expand:hover .expand-hint {
             text-decoration: underline
         }
-
+        
         .gui-modal {
             border: 2px solid var(--ink);
             background: #fff;
@@ -504,11 +556,11 @@
             max-height: 94vh;
             overflow: auto
         }
-
+        
         .gui-modal::backdrop {
             background: rgba(0, 0, 0, .85)
         }
-
+        
         .gui-modal-top {
             display: flex;
             justify-content: space-between;
@@ -517,17 +569,17 @@
             border-bottom: 2px solid var(--ink);
             padding-bottom: 12px;
             margin-bottom: 12px;
-            font: 800 15px 'Courier New', monospace
+            font: 800 15px 'HUFF Amboy', 'Courier New', monospace
         }
-
+        
         .gui-modal-top button {
             background: #fff;
             border: 2px solid var(--ink);
             padding: 9px 14px;
             cursor: pointer;
-            font: 800 13px 'Courier New', monospace
+            font: 800 13px 'HUFF Amboy', 'Courier New', monospace
         }
-
+        
         .gui-modal>img {
             display: block;
             width: 100%;
@@ -535,22 +587,20 @@
             max-height: calc(94vh - 105px);
             object-fit: contain
         }
-
+        
         @media(max-width:540px) {
             .gui-modal {
                 padding: 9px
             }
-
             .gui-modal-top {
                 font-size: 12px
             }
-
             .gui-modal-top button {
                 padding: 8px
             }
         }
-
         /* SHARED HUFF RESOURCE MENU — landing and reference library */
+        
         .links {
             display: flex;
             flex-wrap: wrap;
@@ -561,7 +611,7 @@
             max-width: none;
             margin-inline: auto;
         }
-
+        
         .links>.link-card {
             flex: 0 1 calc((100% - 39px) / 4);
             min-width: 0;
@@ -569,229 +619,328 @@
             padding: 18px 43px 18px 18px;
             font-size: clamp(15px, 1.6vw, 19px);
         }
-
+        
         .link-card .arrow {
             right: 13px;
             top: 10px;
             font-size: 26px;
         }
-
+        
         @media (max-width: 850px) {
             .links>.link-card {
                 flex-basis: calc((100% - 13px) / 2);
             }
         }
-
+        
         @media (max-width: 540px) {
             .links {
                 gap: 9px;
             }
-
             .links>.link-card {
                 flex-basis: 100%;
                 min-height: 75px;
                 padding: 13px 34px 13px 12px;
                 font-size: 15px;
             }
-
             .link-card .arrow {
                 right: 10px;
                 top: 9px;
                 font-size: 22px;
             }
         }
-
         /* Even section rhythm: each divider sits midway between adjacent blocks. */
-        :root {
+        
+         :root {
             --section-space: clamp(24px, 3vw, 40px);
         }
-
+        
         .hero {
             padding-bottom: var(--section-space);
         }
-
+        
         main {
             padding-top: var(--section-space);
             padding-bottom: var(--section-space);
         }
-
+        
         #interface {
             border-bottom: 3px solid var(--ink);
             padding-bottom: var(--section-space);
             margin-bottom: var(--section-space);
         }
-
+        
         .site-footer {
             padding-top: var(--section-space);
         }
-    
-/* SHARED MASTHEAD V2 — same measured layout on home and reference. */
-.hero, .brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    text-align: center;
-    padding: 30px 0 32px;
-    gap: 0;
-    border-bottom: 3px solid var(--ink);
-}
-.masthead-product {
-    font: 900 clamp(20px, 2.8vw, 28px)/1.1 'Courier New', monospace;
-    letter-spacing: .05em;
-    text-transform: uppercase;
-    margin: 0 0 16px;
-}
-.hero-logo, .brand img {
-    display: block;
-    width: clamp(180px, 30vw, 340px);
-    height: auto;
-    border: 0;
-    object-fit: contain;
-}
-.brand-home { display: block; line-height: 0; }
-.hero .page-title, .brand .page-title {
-    font: 900 clamp(20px, 3vw, 30px)/1.1 'Courier New', monospace;
-    text-transform: uppercase;
-    letter-spacing: .04em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    margin: 18px 0 22px;
-}
-.hero .links, .brand .links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: stretch;
-    width: min(100%, 1040px);
-    max-width: 1040px;
-    gap: 13px;
-    margin: 0 auto;
-}
-.hero .links > .link-card, .brand .links > .link-card {
-    flex: 0 1 calc((100% - 39px)/4);
-    min-width: 0;
-    min-height: 62px;
-    padding: 11px 42px 11px 16px;
-    font: 900 clamp(15px, 1.6vw, 18px)/1.2 'Courier New', monospace;
-}
-.hero .link-card .arrow, .brand .link-card .arrow {
-    right: 12px;
-    top: 9px;
-    font-size: 22px;
-}
-@media (max-width:850px) {
-    .hero .links > .link-card, .brand .links > .link-card {
-        flex-basis: calc((100% - 13px)/2);
-    }
-}
-@media (max-width:540px) {
-    .hero, .brand { padding: 26px 0 28px; }
-    .hero-logo, .brand img { width: clamp(170px,48vw,230px); }
-    .masthead-product { margin-bottom: 14px; }
-    .hero .page-title, .brand .page-title { min-height: 32px; margin: 14px 0 18px; }
-    .hero .links, .brand .links { gap: 9px; }
-    .hero .links > .link-card, .brand .links > .link-card {
-        flex-basis: 100%; min-height: 54px; padding: 10px 38px 10px 12px; font-size: 15px;
-    }
-    .hero .link-card .arrow, .brand .link-card .arrow { right: 10px; top: 8px; font-size: 20px; }
-}
-
-/* APPROVED SHARED HEADER GEOMETRY — matched on HOME and REFERENCE. */
-:root { --huff-header-width: 1320px; --huff-nav-gap: 22px; }
-.container, .page {
-    width: min(var(--huff-header-width), calc(100% - 48px));
-    max-width: var(--huff-header-width);
-    margin-inline: auto;
-}
-.page { padding: 0 0 40px; }
-.hero, .brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    box-sizing: border-box;
-    padding: 30px 0 32px;
-    border-bottom: 3px solid var(--ink);
-}
-.hero .masthead-product, .brand .masthead-product {
-    flex: none;
-    font: 900 clamp(20px, 2.8vw, 28px)/1.1 'Courier New', monospace;
-    letter-spacing: .05em;
-    margin: 0 0 16px;
-    text-transform: uppercase;
-}
-.hero .hero-logo, .brand .brand-home img {
-    display: block;
-    width: clamp(180px, 30vw, 340px);
-    height: auto;
-    max-width: 100%;
-    object-fit: contain;
-}
-.brand .brand-home { flex: none; line-height: 0; }
-.hero .page-title, .brand .page-title {
-    flex: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 40px;
-    font: 900 clamp(20px, 3vw, 30px)/1.1 'Courier New', monospace;
-    letter-spacing: .04em;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 18px 0 22px;
-}
-.hero .links, .brand .links {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--huff-nav-gap);
-    width: 100%;
-    max-width: none;
-    margin: 0;
-}
-.hero .links > .link-card, .brand .links > .link-card {
-    display: flex;
-    width: 100%;
-    min-width: 0;
-    min-height: 62px;
-    padding: 11px 42px 11px 16px;
-    font: 900 clamp(15px, 1.6vw, 18px)/1.2 'Courier New', monospace;
-}
-.hero .link-card .arrow, .brand .link-card .arrow {
-    top: 9px; right: 12px; font-size: 22px;
-}
-@media(max-width:540px) {
-    .container, .page { width: calc(100% - 28px); }
-    .hero, .brand { padding: 26px 0 28px; }
-    .hero .masthead-product, .brand .masthead-product { margin-bottom: 14px; }
-    .hero .hero-logo, .brand .brand-home img { width: clamp(170px, 48vw, 230px); }
-    .hero .page-title, .brand .page-title { min-height: 32px; margin: 14px 0 18px; }
-    .hero .links, .brand .links { grid-template-columns: 1fr; gap: 9px; }
-    .hero .links > .link-card, .brand .links > .link-card {
-        min-height: 54px; padding: 10px 38px 10px 12px; font-size: 15px;
-    }
-    .hero .link-card .arrow, .brand .link-card .arrow { top: 8px; right: 10px; font-size: 20px; }
-}
-
-
-/* Three-resource navigation: equal columns on desktop, adaptive on smaller screens. */
-.hero .links, .brand .links {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-@media (max-width: 760px) and (min-width: 541px) {
-    .hero .links, .brand .links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .hero .links > .link-card:last-child, .brand .links > .link-card:last-child {
-        grid-column: 1 / -1;
-    }
-}
-@media (max-width: 540px) {
-    .hero .links, .brand .links { grid-template-columns: 1fr; }
-    .hero .links > .link-card:last-child, .brand .links > .link-card:last-child { grid-column: auto; }
-}
-
+        /* SHARED MASTHEAD V2 — same measured layout on home and reference. */
+        
+        .hero,
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            text-align: center;
+            padding: 30px 0 32px;
+            gap: 0;
+            border-bottom: 3px solid var(--ink);
+        }
+        
+        .masthead-product {
+            text-transform: uppercase;
+            margin: 0 0 16px;
+        }
+        
+        .hero-logo,
+        .brand img {
+            display: block;
+            height: auto;
+            border: 0;
+            object-fit: contain;
+        }
+        
+        .brand-home {
+            display: block;
+            line-height: 0;
+        }
+        
+        .hero .page-title,
+        .brand .page-title {
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            margin: 18px 0 22px;
+        }
+        
+        .hero .links,
+        .brand .links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+            width: min(100%, 1040px);
+            max-width: 1040px;
+            gap: 13px;
+            margin: 0 auto;
+        }
+        
+        .hero .links>.link-card,
+        .brand .links>.link-card {
+            flex: 0 1 calc((100% - 39px)/4);
+            min-width: 0;
+            min-height: 62px;
+            padding: 11px 42px 11px 16px;
+            font: 900 clamp(15px, 1.6vw, 18px)/1.2 'HUFF Amboy', 'Courier New', monospace;
+        }
+        
+        .hero .link-card .arrow,
+        .brand .link-card .arrow {
+            right: 12px;
+            top: 9px;
+            font-size: 22px;
+        }
+        
+        @media (max-width:850px) {
+            .hero .links>.link-card,
+            .brand .links>.link-card {
+                flex-basis: calc((100% - 13px)/2);
+            }
+        }
+        
+        @media (max-width:540px) {
+            .hero,
+            .brand {
+                padding: 26px 0 28px;
+            }
+            .hero-logo,
+            .brand img {
+            }
+            .masthead-product {
+                /* margin-bottom: 14px;  */
+            }
+            .hero .page-title,
+            .brand .page-title {
+                min-height: 32px;
+                margin: 14px 0 18px;
+            }
+            .hero .links,
+            .brand .links {
+                gap: 9px;
+            }
+            .hero .links>.link-card,
+            .brand .links>.link-card {
+                flex-basis: 100%;
+                min-height: 54px;
+                padding: 10px 38px 10px 12px;
+                font-size: 15px;
+            }
+            .hero .link-card .arrow,
+            .brand .link-card .arrow {
+                right: 10px;
+                top: 8px;
+                font-size: 20px;
+            }
+        }
+        /* APPROVED SHARED HEADER GEOMETRY — matched on HOME and REFERENCE. */
+        
+        :root {
+            --huff-header-width: 1320px;
+            --huff-nav-gap: 22px;
+        }
+        
+        .container,
+        .page {
+            width: min(var(--huff-header-width), calc(100% - 48px));
+            max-width: var(--huff-header-width);
+            margin-inline: auto;
+        }
+        
+        .page {
+            padding: 0 0 40px;
+        }
+        
+        .hero,
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            box-sizing: border-box;
+            padding: 30px 0 32px;
+            border-bottom: 3px solid var(--ink);
+        }
+        
+        .hero .masthead-product,
+        .brand .masthead-product {
+            flex: none;
+            margin: 0 0 0px;
+            text-transform: uppercase;
+        }
+        
+        .hero .hero-logo,
+        .brand .brand-home img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+            object-fit: contain;
+            margin-bottom:16px;
+        }
+        
+        .brand .brand-home {
+            flex: none;
+            line-height: 0;
+        }
+        
+        .hero .page-title,
+        .brand .page-title {
+            flex: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            text-transform: uppercase;
+            text-align: center;
+            margin: 18px 0 22px;
+        }
+        
+        .hero .links,
+        .brand .links {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: var(--huff-nav-gap);
+            width: 100%;
+            max-width: none;
+            margin: 0;
+        }
+        
+        .hero .links>.link-card,
+        .brand .links>.link-card {
+            display: flex;
+            width: 100%;
+            min-width: 0;
+            min-height: 62px;
+            padding: 11px 42px 11px 16px;
+            font: 900 clamp(15px, 1.6vw, 18px)/1.2 'HUFF Amboy', 'Courier New', monospace;
+        }
+        
+        .hero .link-card .arrow,
+        .brand .link-card .arrow {
+            top: 9px;
+            right: 12px;
+            font-size: 22px;
+        }
+        
+        @media(max-width:540px) {
+            .container,
+            .page {
+                width: calc(100% - 28px);
+            }
+            .hero,
+            .brand {
+                padding: 26px 0 28px;
+            }
+            .hero .masthead-product,
+            .brand .masthead-product {
+                /* margin-bottom: 14px; */
+            }
+            .hero .hero-logo,
+            .brand .brand-home img {
+            }
+            .hero .page-title,
+            .brand .page-title {
+                min-height: 32px;
+                margin: 14px 0 18px;
+            }
+            .hero .links,
+            .brand .links {
+                grid-template-columns: 1fr;
+                gap: 9px;
+            }
+            .hero .links>.link-card,
+            .brand .links>.link-card {
+                min-height: 54px;
+                padding: 10px 38px 10px 12px;
+                font-size: 15px;
+            }
+            .hero .link-card .arrow,
+            .brand .link-card .arrow {
+                top: 8px;
+                right: 10px;
+                font-size: 20px;
+            }
+        }
+        /* Three-resource navigation: equal columns on desktop, adaptive on smaller screens. */
+        
+        .hero .links,
+        .brand .links {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        
+        @media (max-width: 760px) and (min-width: 541px) {
+            .hero .links,
+            .brand .links {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .hero .links>.link-card:last-child,
+            .brand .links>.link-card:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+        
+        @media (max-width: 540px) {
+            .hero .links,
+            .brand .links {
+                grid-template-columns: 1fr;
+            }
+            .hero .links>.link-card:last-child,
+            .brand .links>.link-card:last-child {
+                grid-column: auto;
+            }
+        }
         /* Fixed vector glyph: identical on desktop and mobile. */
+        
         .huff-arrow-icon {
             display: inline-block;
             width: 1em;
@@ -799,22 +948,19 @@
             vertical-align: -0.08em;
             flex: none;
         }
-
     </style>
 </head>
 
 <body>
     <header class="container hero">
-        <div class="masthead-product">HUFF WEB</div>
-        <img class="hero-logo" src="huff-icon.jpg" alt="HUFF logo">
-        <h1 class="page-title">Home</h1>
+        <div class="masthead-product">HUFF</div>
+        <img class="hero-logo" src="huff-icon.jpg" alt="HUFF logo" width="900" height="900" fetchpriority="high" decoding="async">
+        <!-- <h1 class="page-title"></h1> -->
         <div class="links" aria-label="HUFF resources">
             <a class="link-card" href="reference/index.html">Reference <span class="arrow"
                     aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
-            <a class="link-card" href="https://schwwaaa.github.io/huff-web/" target="_blank"
-                rel="noopener noreferrer">Try Now<span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
-            <a class="link-card" href="https://github.com/schwwaaa/huff-web" target="_blank"
-                rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
+            <a class="link-card" href="https://schwwaaa.github.io/huff-web/" target="_blank" rel="noopener noreferrer">Try Now<span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
+            <a class="link-card" href="https://github.com/schwwaaa/huff-web" target="_blank" rel="noopener noreferrer">GitHub <span class="arrow" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
             <!-- To add another resource, copy a link-card anchor into this links container. -->
         </div>
     </header>
@@ -822,19 +968,16 @@
         <section id="interface" aria-labelledby="gui-heading">
             <div class="gui-panel">
                 <div class="gui-stage">
-                    <div class="gui-image-wrap"><button class="gui-expand" id="guiExpand" type="button"
-                            aria-label="Enlarge interface image"><img id="guiImage" src="huff-icon.jpg" alt="HUFF logo"
+                    <div class="gui-image-wrap"><button class="gui-expand" id="guiExpand" type="button" aria-label="Enlarge interface image"><img id="guiImage" src="huff-icon.jpg" alt="HUFF logo"
                                 loading="lazy"><span class="expand-hint" aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg> Enlarge
                                 image</span></button></div>
                     <div class="gui-copy">
                         <div class="eyebrow" id="guiEyebrow">01 / GUI OVERVIEW</div>
                         <h3 id="guiTitle">GUI control sections</h3>
-                        <p id="guiText">Browse the interface by section.</p><a class="gui-ref" id="guiReference"
-                            href="reference/index.html">Explore reference <span aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
+                        <p id="guiText">Browse the interface by section.</p><a class="gui-ref" id="guiReference" href="reference/index.html">Explore reference <span aria-hidden="true"><svg class="huff-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d="M5 19L19 5M8 5H19V16"/></svg></span></a>
                     </div>
                 </div>
-                <div class="gui-controls"><button class="media-nav" type="button" id="guiPrev"
-                        aria-label="Previous interface section">← Previous</button>
+                <div class="gui-controls"><button class="media-nav" type="button" id="guiPrev" aria-label="Previous interface section">← Previous</button>
                     <div>
                         <div class="gui-counter" id="guiCounter" aria-live="polite"></div>
                         <div class="gui-dots" id="guiDots" aria-label="Select interface section"></div>
@@ -846,8 +989,7 @@
         <section aria-labelledby="media-heading">
             <div class="media">
                 <div class="media-display" id="mediaSlide" aria-label="HUFF demonstration video"></div>
-                <div class="media-control-row"><button class="media-nav" id="prevBtn" type="button"
-                        aria-label="Previous video">← Previous</button>
+                <div class="media-control-row"><button class="media-nav" id="prevBtn" type="button" aria-label="Previous video">← Previous</button>
                     <div class="media-status">
                         <div class="media-caption" id="slideCaption" aria-live="polite"></div>
                         <div class="dots" id="carouselDots" aria-label="Select a video"></div>
@@ -856,44 +998,250 @@
             </div>
         </section>
         <dialog id="guiModal" class="gui-modal" aria-label="Enlarged HUFF interface image">
-            <div class="gui-modal-top"><strong id="guiModalLabel">HUFF interface</strong><button type="button"
-                    id="guiModalClose" aria-label="Close enlarged image">✕ Close</button></div>
+            <div class="gui-modal-top"><strong id="guiModalLabel">HUFF interface</strong><button type="button" id="guiModalClose" aria-label="Close enlarged image">✕ Close</button></div>
             <img id="guiModalImage" alt="">
         </dialog>
     </main>
-    <footer class="container site-footer"><a class="huff" href="index.html" aria-label="Back to HUFF home"><img
-                src="huff-icon.jpg" alt="HUFF"></a><a class="schwwaaa" href="https://linktr.ee/schwwaaa" target="_blank"
-            rel="noopener noreferrer" aria-label="Visit schwwaaa"><img src="schwwaaa-logo.png" alt="schwwaaa"></a>
+    <footer class="container site-footer">
+        <a class="huff" href="index.html" aria-label="Back to HUFF home"><img src="huff-icon.jpg" alt="HUFF" width="900" height="900" loading="lazy" decoding="async"></a>
+        <a class="schwwaaa" href="https://linktr.ee/schwwaaa" target="_blank" rel="noopener noreferrer" aria-label="Visit schwwaaa"><img src="schwwaaa-logo.png" alt="schwwaaa" width="450" height="150" loading="lazy" decoding="async"></a>
     </footer>
     <script>
         // Four original media sources, in their original order.
-        const slides = [
-            { src: 'https://www.youtube.com/watch?v=klNg-Qo1ZoI', label: 'paint thinner' },            
-            { src: 'https://www.youtube.com/watch?v=mjQ-ZcHXZ94', label: 'spray paint' },
-            { src: 'https://www.youtube.com/watch?v=KZih90vmm0o', label: 'babagoogalons' },
-            { src: 'https://www.youtube.com/watch?v=U3uwwht_H9A', label: 'spot remover' },
-            { src: 'https://www.youtube.com/watch?v=gmnD3tasows', label: 'wite-out' },
-            { src: 'https://www.youtube.com/watch?v=ld-UGcCTYps', label: 'air freshener' },
-            { src: 'https://www.youtube.com/watch?v=bFL4uPPPYwQ', label: 'refrigerant gas' },
-            { src: 'https://www.youtube.com/watch?v=-6raIIXKBOg', label: 'rubber cement' },
-            { src: 'https://www.youtube.com/watch?v=HTsCZsJWRUY', label: 'pc cleaner' },
-            { src: 'https://www.youtube.com/watch?v=JIeSKBnN68c', label: 'fluorocarbon' },
-            { src: 'https://www.youtube.com/watch?v=p-10ld_vF9I', label: 'galaxy gas' }
-        ];
+        const slides = [{
+            src: 'https://www.youtube.com/watch?v=klNg-Qo1ZoI',
+            label: 'paint thinner'
+        }, {
+            src: 'https://www.youtube.com/watch?v=mjQ-ZcHXZ94',
+            label: 'spray paint'
+        }, {
+            src: 'https://www.youtube.com/watch?v=KZih90vmm0o',
+            label: 'babagoogalons'
+        }, {
+            src: 'https://www.youtube.com/watch?v=U3uwwht_H9A',
+            label: 'spot remover'
+        }, {
+            src: 'https://www.youtube.com/watch?v=gmnD3tasows',
+            label: 'wite-out'
+        }, {
+            src: 'https://www.youtube.com/watch?v=ld-UGcCTYps',
+            label: 'air freshener'
+        }, {
+            src: 'https://www.youtube.com/watch?v=bFL4uPPPYwQ',
+            label: 'refrigerant gas'
+        }, {
+            src: 'https://www.youtube.com/watch?v=-6raIIXKBOg',
+            label: 'rubber cement'
+        }, {
+            src: 'https://www.youtube.com/watch?v=HTsCZsJWRUY',
+            label: 'pc cleaner'
+        }, {
+            src: 'https://www.youtube.com/watch?v=JIeSKBnN68c',
+            label: 'fluorocarbon'
+        }, {
+            src: 'https://www.youtube.com/watch?v=p-10ld_vF9I',
+            label: 'galaxy gas'
+        }];
         let current = 0;
-        const slideEl = document.getElementById('mediaSlide'), captionEl = document.getElementById('slideCaption'), dotsEl = document.getElementById('carouselDots');
-        function youtubeID(url) { const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/); return m ? m[1] : null }
-        function render() { const s = slides[current], id = youtubeID(s.src); slideEl.replaceChildren(); if (id) { const f = document.createElement('iframe'); f.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`; f.title = `HUFF video example: ${s.label}`; f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'; f.allowFullscreen = true; f.referrerPolicy = 'strict-origin-when-cross-origin'; slideEl.append(f) } captionEl.textContent = `${current + 1} of ${slides.length} — ${s.label}`; dotsEl.replaceChildren(); slides.forEach((item, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'dot'; b.setAttribute('aria-label', `Show ${item.label}`); b.setAttribute('aria-current', String(i === current)); b.addEventListener('click', () => { current = i; render() }); dotsEl.append(b) }) }
-        document.getElementById('prevBtn').addEventListener('click', () => { current = (current - 1 + slides.length) % slides.length; render() });
-        document.getElementById('nextBtn').addEventListener('click', () => { current = (current + 1) % slides.length; render() }); render();
+        const slideEl = document.getElementById('mediaSlide'),
+            captionEl = document.getElementById('slideCaption'),
+            dotsEl = document.getElementById('carouselDots');
+
+        function youtubeID(url) {
+            const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
+            return m ? m[1] : null
+        }
+
+        function render() {
+            const s = slides[current],
+                id = youtubeID(s.src);
+            slideEl.replaceChildren();
+            if (id) {
+                const f = document.createElement('iframe');
+                f.src = `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`;
+                f.title = `HUFF video example: ${s.label}`;
+                f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+                f.allowFullscreen = true;
+                f.referrerPolicy = 'strict-origin-when-cross-origin';
+                slideEl.append(f)
+            }
+            captionEl.textContent = `${current + 1} of ${slides.length} — ${s.label}`;
+            dotsEl.replaceChildren();
+            slides.forEach((item, i) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'dot';
+                b.setAttribute('aria-label', `Show ${item.label}`);
+                b.setAttribute('aria-current', String(i === current));
+                b.addEventListener('click', () => {
+                    current = i;
+                    render()
+                });
+                dotsEl.append(b)
+            })
+        }
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            current = (current - 1 + slides.length) % slides.length;
+            render()
+        });
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            current = (current + 1) % slides.length;
+            render()
+        });
+        render();
     </script>
     <script>
         // GUI tour intentionally separate from the existing YouTube carousel.
-        const guiSlides = [{"section":"HUFF WEB","title":"HUFF Web","description":"A real-time video instrument for working with moving images. Load a video or use a camera, then manipulate the picture with live effects, feedback, compositing, and spatial transformations. Explore the controls in the following slides.","image":"huff-icon.jpg","link":"reference/index.html","alt":"HUFF Web logo"},{"section":"GUI OVERVIEW","title":"GUI control sections","description":"An overview assembled from the existing HUFF control screenshots. These are the main sections you work with while shaping a video.","image":"assets/gui-sections-overview.webp","link":"reference/index.html","alt":"Overview assembled from HUFF control screenshots, not one full application screenshot"},{"section":"SOURCE","title":"Choose what HUFF sees","description":"Use a camera or video file as the starting image. The source controls handle playback and the base video layer.","image":"reference/source/assets/source-original.png","link":"reference/source/index.html","alt":"SOURCE HUFF interface screenshot"},{"section":"PRESETS","title":"Keep your favorite setups","description":"Save and recall configurations, so a particular combination of effects is easy to return to.","image":"reference/presets/assets/presets-original.png","link":"reference/presets/index.html","alt":"PRESETS HUFF interface screenshot"},{"section":"PIPELINE","title":"Choose how effects are arranged","description":"The pipeline controls which processing stages run and how they are ordered.","image":"reference/pipeline/assets/pipeline-original.png","link":"reference/pipeline/index.html","alt":"PIPELINE HUFF interface screenshot"},{"section":"VISTA","title":"Rearrange parts of the image","description":"Build moving regions from previous frames, then vary their spacing, placement, and timing.","image":"reference/vista/assets/vista-main.png","link":"reference/vista/index.html","alt":"VISTA HUFF interface screenshot"},{"section":"PANELING","title":"Break the frame into panels","description":"Create bands or a field of panels, then shift, expand, skew, and animate their positions.","image":"reference/paneling/assets/paneling-bands.png","link":"reference/paneling/index.html","alt":"PANELING HUFF interface screenshot"},{"section":"PANELING / FIELD","title":"Make a field of moving panels","description":"Field mode distributes image panels across the frame, with separate spatial controls.","image":"reference/paneling/assets/paneling-field.png","link":"reference/paneling/index.html","alt":"PANELING / FIELD HUFF interface screenshot"},{"section":"SYMMETRY","title":"Reflect and reposition","description":"Mirror the picture across horizontal or vertical axes and move the dividing line.","image":"reference/symmetry/assets/symmetry-original.png","link":"reference/symmetry/index.html","alt":"SYMMETRY HUFF interface screenshot"},{"section":"GLOBAL MIX","title":"Bring the image layers together","description":"Select a blend mode and set how strongly the processed picture mixes with the source.","image":"reference/global-mix/assets/global-mix-original.png","link":"reference/global-mix/index.html","alt":"GLOBAL MIX HUFF interface screenshot"},{"section":"FEEDBACK","title":"Send the image back into itself","description":"Repeat recent frames to form trails, drifting patterns, and feedback motion.","image":"reference/feedback/assets/feedback-original.png","link":"reference/feedback/index.html","alt":"FEEDBACK HUFF interface screenshot"},{"section":"LUMA KEY","title":"Use brightness as a mask","description":"Control which parts of an image pass through using brightness, then adjust the edge and density.","image":"reference/luma-key/assets/luma-key-original.png","link":"reference/luma-key/index.html","alt":"LUMA KEY HUFF interface screenshot"},{"section":"SOLARIZE","title":"Change how brightness becomes color","description":"Use a threshold and per-channel controls to alter the image’s tones.","image":"reference/solarize/assets/solarize-original.png","link":"reference/solarize/index.html","alt":"SOLARIZE HUFF interface screenshot"},{"section":"SIFT","title":"Push the image out of shape","description":"Pull, swirl, and disturb the image with displacement and turbulence.","image":"reference/sift/assets/sift-original.png","link":"reference/sift/index.html","alt":"SIFT HUFF interface screenshot"},{"section":"ABOUT & CAPTURE","title":"About and screenshot tools","description":"Open information about HUFF Web or capture a screenshot using the window dimensions or a 16:9, 4:3, or 9:16 aspect ratio.","image":"reference/about-capture/assets/about-capture-original.png","link":"reference/about-capture/index.html","alt":"HUFF About button and Window, Shot 16:9, Shot 4:3, and Shot 9:16 screenshot controls"}];
+        const guiSlides = [{
+            "section": "HUFF",
+            "title": "HUFF",
+            "description": "A real-time video instrument for working with moving images. Load a video or use a camera, then manipulate the picture with live effects, feedback, compositing, and spatial transformations. Explore the controls in the following slides.",
+            "image": "huff-icon.jpg",
+            "link": "reference/index.html",
+            "alt": "HUFF logo"
+        }, {
+            "section": "GUI OVERVIEW",
+            "title": "GUI control sections",
+            "description": "An overview assembled from the existing HUFF control screenshots. These are the main sections you work with while shaping a video.",
+            "image": "assets/gui-sections-overview.webp",
+            "link": "reference/index.html",
+            "alt": "Overview assembled from HUFF control screenshots, not one full application screenshot"
+        }, {
+            "section": "SOURCE",
+            "title": "Choose what HUFF sees",
+            "description": "Use a camera or video file as the starting image. The source controls handle playback and the base video layer.",
+            "image": "reference/source/assets/source-original.png",
+            "link": "reference/source/index.html",
+            "alt": "SOURCE HUFF interface screenshot"
+        }, {
+            "section": "PRESETS",
+            "title": "Keep your favorite setups",
+            "description": "Save and recall configurations, so a particular combination of effects is easy to return to.",
+            "image": "reference/presets/assets/presets-original.png",
+            "link": "reference/presets/index.html",
+            "alt": "PRESETS HUFF interface screenshot"
+        }, {
+            "section": "PIPELINE",
+            "title": "Choose how effects are arranged",
+            "description": "The pipeline controls which processing stages run and how they are ordered.",
+            "image": "reference/pipeline/assets/pipeline-original.png",
+            "link": "reference/pipeline/index.html",
+            "alt": "PIPELINE HUFF interface screenshot"
+        }, {
+            "section": "VISTA",
+            "title": "Rearrange parts of the image",
+            "description": "Build moving regions from previous frames, then vary their spacing, placement, and timing.",
+            "image": "reference/vista/assets/vista-main.png",
+            "link": "reference/vista/index.html",
+            "alt": "VISTA HUFF interface screenshot"
+        }, {
+            "section": "PANELING",
+            "title": "Break the frame into panels",
+            "description": "Create bands or a field of panels, then shift, expand, skew, and animate their positions.",
+            "image": "reference/paneling/assets/paneling-bands.png",
+            "link": "reference/paneling/index.html",
+            "alt": "PANELING HUFF interface screenshot"
+        }, {
+            "section": "PANELING / FIELD",
+            "title": "Make a field of moving panels",
+            "description": "Field mode distributes image panels across the frame, with separate spatial controls.",
+            "image": "reference/paneling/assets/paneling-field.png",
+            "link": "reference/paneling/index.html",
+            "alt": "PANELING / FIELD HUFF interface screenshot"
+        }, {
+            "section": "SYMMETRY",
+            "title": "Reflect and reposition",
+            "description": "Mirror the picture across horizontal or vertical axes and move the dividing line.",
+            "image": "reference/symmetry/assets/symmetry-original.png",
+            "link": "reference/symmetry/index.html",
+            "alt": "SYMMETRY HUFF interface screenshot"
+        }, {
+            "section": "GLOBAL MIX",
+            "title": "Bring the image layers together",
+            "description": "Select a blend mode and set how strongly the processed picture mixes with the source.",
+            "image": "reference/global-mix/assets/global-mix-original.png",
+            "link": "reference/global-mix/index.html",
+            "alt": "GLOBAL MIX HUFF interface screenshot"
+        }, {
+            "section": "FEEDBACK",
+            "title": "Send the image back into itself",
+            "description": "Repeat recent frames to form trails, drifting patterns, and feedback motion.",
+            "image": "reference/feedback/assets/feedback-original.png",
+            "link": "reference/feedback/index.html",
+            "alt": "FEEDBACK HUFF interface screenshot"
+        }, {
+            "section": "LUMA KEY",
+            "title": "Use brightness as a mask",
+            "description": "Control which parts of an image pass through using brightness, then adjust the edge and density.",
+            "image": "reference/luma-key/assets/luma-key-original.png",
+            "link": "reference/luma-key/index.html",
+            "alt": "LUMA KEY HUFF interface screenshot"
+        }, {
+            "section": "SOLARIZE",
+            "title": "Change how brightness becomes color",
+            "description": "Use a threshold and per-channel controls to alter the image’s tones.",
+            "image": "reference/solarize/assets/solarize-original.png",
+            "link": "reference/solarize/index.html",
+            "alt": "SOLARIZE HUFF interface screenshot"
+        }, {
+            "section": "SIFT",
+            "title": "Push the image out of shape",
+            "description": "Pull, swirl, and disturb the image with displacement and turbulence.",
+            "image": "reference/sift/assets/sift-original.png",
+            "link": "reference/sift/index.html",
+            "alt": "SIFT HUFF interface screenshot"
+        }, {
+            "section": "ABOUT & CAPTURE",
+            "title": "About and screenshot tools",
+            "description": "Open information about HUFF or capture a screenshot using the window dimensions or a 16:9, 4:3, or 9:16 aspect ratio.",
+            "image": "reference/about-capture/assets/about-capture-original.png",
+            "link": "reference/about-capture/index.html",
+            "alt": "HUFF About button and Window, Shot 16:9, Shot 4:3, and Shot 9:16 screenshot controls"
+        }];
         let guiIndex = 0;
-        const guiEls = { image: document.getElementById('guiImage'), eyebrow: document.getElementById('guiEyebrow'), title: document.getElementById('guiTitle'), text: document.getElementById('guiText'), reference: document.getElementById('guiReference'), counter: document.getElementById('guiCounter'), dots: document.getElementById('guiDots') };
-        function renderGUI() { const s = guiSlides[guiIndex]; guiEls.image.src = s.image; guiEls.image.alt = s.alt; guiEls.eyebrow.textContent = `${String(guiIndex).padStart(2, '0')} / ${s.section}`; guiEls.title.textContent = s.title; guiEls.text.textContent = s.description; guiEls.reference.href = s.link; guiEls.reference.firstChild.textContent = guiIndex === 0 ? 'Explore reference ' : 'See this reference '; guiEls.counter.textContent = `${guiIndex + 1} of ${guiSlides.length}`; guiEls.dots.replaceChildren(); guiSlides.forEach((item, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'dot'; b.setAttribute('aria-label', `Show ${item.section}`); b.setAttribute('aria-current', String(i === guiIndex)); b.addEventListener('click', () => { guiIndex = i; renderGUI() }); guiEls.dots.append(b) }) }
-        document.getElementById('guiPrev').addEventListener('click', () => { guiIndex = (guiIndex - 1 + guiSlides.length) % guiSlides.length; renderGUI() }); document.getElementById('guiNext').addEventListener('click', () => { guiIndex = (guiIndex + 1) % guiSlides.length; renderGUI() }); renderGUI();
+        const guiEls = {
+            image: document.getElementById('guiImage'),
+            eyebrow: document.getElementById('guiEyebrow'),
+            title: document.getElementById('guiTitle'),
+            text: document.getElementById('guiText'),
+            reference: document.getElementById('guiReference'),
+            counter: document.getElementById('guiCounter'),
+            dots: document.getElementById('guiDots')
+        };
+
+        function renderGUI() {
+            const s = guiSlides[guiIndex];
+            guiEls.image.src = s.image;
+            guiEls.image.alt = s.alt;
+            guiEls.eyebrow.textContent = `${String(guiIndex).padStart(2, '0')} / ${s.section}`;
+            guiEls.title.textContent = s.title;
+            guiEls.text.textContent = s.description;
+            guiEls.reference.href = s.link;
+            guiEls.reference.firstChild.textContent = guiIndex === 0 ? 'Explore reference ' : 'See this reference ';
+            guiEls.counter.textContent = `${guiIndex + 1} of ${guiSlides.length}`;
+            guiEls.dots.replaceChildren();
+            guiSlides.forEach((item, i) => {
+                const b = document.createElement('button');
+                b.type = 'button';
+                b.className = 'dot';
+                b.setAttribute('aria-label', `Show ${item.section}`);
+                b.setAttribute('aria-current', String(i === guiIndex));
+                b.addEventListener('click', () => {
+                    guiIndex = i;
+                    renderGUI()
+                });
+                guiEls.dots.append(b)
+            })
+        }
+        document.getElementById('guiPrev').addEventListener('click', () => {
+            guiIndex = (guiIndex - 1 + guiSlides.length) % guiSlides.length;
+            renderGUI()
+        });
+        document.getElementById('guiNext').addEventListener('click', () => {
+            guiIndex = (guiIndex + 1) % guiSlides.length;
+            renderGUI()
+        });
+        renderGUI();
         const guiModal = document.getElementById('guiModal');
         document.getElementById('guiExpand').addEventListener('click', () => {
             const item = guiSlides[guiIndex];
@@ -903,7 +1251,9 @@
             guiModal.showModal();
         });
         document.getElementById('guiModalClose').addEventListener('click', () => guiModal.close());
-        guiModal.addEventListener('click', (event) => { if (event.target === guiModal) guiModal.close() });
+        guiModal.addEventListener('click', (event) => {
+            if (event.target === guiModal) guiModal.close()
+        });
     </script>
 </body>
 
